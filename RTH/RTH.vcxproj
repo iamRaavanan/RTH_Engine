@@ -51,7 +51,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -74,10 +74,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Test.h" />
+    <ClInclude Include="Source\RTH.h" />
+    <ClInclude Include="Source\RTH\Application.h" />
+    <ClInclude Include="Source\RTH\Core.h" />
+    <ClInclude Include="Source\RTH\Entrypoint.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Test.cpp" />
+    <ClCompile Include="Source\RTH\Application.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
