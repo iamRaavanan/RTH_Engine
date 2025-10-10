@@ -5,7 +5,9 @@ extern RTH::Application* RTH::CreateApplication();
 
 void main(int argc, char** argv)
 {
-	printf("Entrypoint for RTH Engine!\n");
+	RTH::Log::Init();
+	RTH_CORE_WARN("Entrypoint for RTH Engine!");
+	RTH_INFO("Welcome!\n");
 	auto app = RTH::CreateApplication();
 	app->Run();
 	delete app;

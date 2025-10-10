@@ -1,0 +1,3 @@
+[submodule "RTH/Plugins/spdlog"]
+	path = RTH/Plugins/spdlog
+	url = https://github.com/gabime/spdlog.git
