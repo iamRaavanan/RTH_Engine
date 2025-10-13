@@ -26,6 +26,7 @@ project "RTH"
 
 	includedirs
 	{
+		"%{prj.name}/Source",
 		"%{prj.name}/Plugins/spdlog/include"
 	}
 

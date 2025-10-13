@@ -4,6 +4,9 @@
     <Filter Include="RTH">
       <UniqueIdentifier>{D31A880B-3F24-887C-C89F-9E7C34A8937C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RTH\Event">
+      <UniqueIdentifier>{642EB9E0-D098-6D57-19D7-1EFD85804BAC}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\RTH.h" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="Source\RTH\Entrypoint.h">
       <Filter>RTH</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RTH\Event\ApplicationEvent.h">
+      <Filter>RTH\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RTH\Event\Event.h">
+      <Filter>RTH\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RTH\Event\KeyEvent.h">
+      <Filter>RTH\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RTH\Event\MouseEvent.h">
+      <Filter>RTH\Event</Filter>
     </ClInclude>
     <ClInclude Include="Source\RTH\Log.h">
       <Filter>RTH</Filter>

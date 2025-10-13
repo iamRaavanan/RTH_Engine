@@ -2,9 +2,12 @@
 #include <memory>
 #include "Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
 
 namespace RTH
 {
+#pragma warning(push)
+#pragma warning(disable:4251)
 	class RTH_API Log
 	{
 	public:

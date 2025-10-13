@@ -1,0 +1,48 @@
+#pragma once
+
+#include "Event.h"
+#include <sstream>
+
+namespace RTH {
+	class RTH_API KeyEvent : public Event
+	{
+	public:
+		inline int GetKeyCode() cosnt { return mKeyCode; }
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+	protected:
+		KeyEvent(int keycode) : mKeyCode(keycode) {}
+		int mKeyCode;
+	};
+
+	class RTH_API KeyPressedEvent : public KeyEvent
+	{
+	public:
+		KeyPressedEvent(int keycode, int repeatCount): KeyEvent(keycode), mRepeatCount(repeatCount) {}
+
+		inline int GetRepeatCount() const { return mRepeatCount; }
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyPressedEvent: " << mKeycode << " (" << mRepeatCount << " repats)";
+			return ss.str();
+		}
+		EVENT_CLASS_TYPE(KeyPressed)
+	private:
+		int mRepeatCount;
+	};
+
+	class RTH_API KeyReleasedEvent : public KeyEvent
+	{
+	public:
+		KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyPressedEvent: " << mKeycode;
+			return ss.str();
+		}
+		EVENT_CLASS_TYPE(KeyReleased)
+	};
+}
