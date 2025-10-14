@@ -10,6 +10,12 @@ workspace "RTH"
 	
 outputdir = "%{cfg.buildcfg}%{cfg.system}%{cfg.architecture}"
 
+-- Including the directories relative to the root folder
+IncludeDir = {}
+IncludeDir["GLFW"] = "RTH/Plugins/GLFW/include"
+
+include "RTH/Plugins/GLFW"
+
 project "RTH"
 	location "RTH"
 	kind "SharedLib"
@@ -29,9 +35,15 @@ project "RTH"
 	includedirs
 	{
 		"%{prj.name}/Source",
-		"%{prj.name}/Plugins/spdlog/include"
+		"%{prj.name}/Plugins/spdlog/include",
+		"%{IncludeDir.GLFW}"
 	}
-
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
+	}
+	
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"

@@ -1,3 +1,6 @@
 [submodule "RTH/Plugins/spdlog"]
 	path = RTH/Plugins/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "RTH/Plugins/GLFW"]
+	path = RTH/Plugins/GLFW
+	url = https://github.com/iamRaavanan/glfw
