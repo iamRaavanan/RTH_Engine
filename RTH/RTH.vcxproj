@@ -76,7 +76,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Rthpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;Plugins\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -98,7 +99,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Rthpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;Plugins\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -124,7 +126,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Rthpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;Plugins\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -158,10 +161,14 @@
     <ClInclude Include="Source\RTH\Event\KeyEvent.h" />
     <ClInclude Include="Source\RTH\Event\MouseEvent.h" />
     <ClInclude Include="Source\RTH\Log.h" />
+    <ClInclude Include="Source\Rthpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\RTH\Application.cpp" />
     <ClCompile Include="Source\RTH\Log.cpp" />
+    <ClCompile Include="Source\Rthpch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,6 +18,8 @@ project "RTH"
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "Rthpch.h"
+	pchsource "%{prj.name}/Source/Rthpch.cpp"
 	files
 	{
 		"%{prj.name}/Source/**.h",

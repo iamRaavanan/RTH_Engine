@@ -2,9 +2,6 @@
 
 #include "RTH/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace RTH {
 
 	enum class EventType

@@ -1,6 +1,5 @@
 #pragma once
 #include "Event.h"
-#include <sstream>
 
 namespace RTH {
 	class RTH_API WindowResizeEvent : public Event
