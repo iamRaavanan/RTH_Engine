@@ -17,13 +17,34 @@ namespace RTH
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		RTH_CORE_TRACE("{0}", e.ToString());
+		//RTH_CORE_TRACE("{0}", e.ToString());
+
+		for (auto it = mLayerStack.end(); it != mLayerStack.begin();)
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled)
+				break;
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		mLayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		mLayerStack.PushOverlay(layer);
 	}
 
 	void Application::Run()
 	{
 		while (mRunning)
 		{
+			for (Layer* layer : mLayerStack)
+			{
+				layer->OnUpdate();
+			}
 			mWindow->OnUpdate();
 		}
 	}

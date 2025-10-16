@@ -43,8 +43,7 @@ namespace RTH {
 		{
 			return GetCategoryFlags() & category;
 		}
-	protected:
-		bool mHandled = false;	
+		bool Handled = false;	
 	};
 
 	class EventDispatcher
@@ -59,7 +58,7 @@ namespace RTH {
 		{
 			if (mEvent.GetEventType() == T::GetStaticType())
 			{
-				mEvent.mHandled = func(*(T*)&mEvent);
+				mEvent.Handled = func(*(T*)&mEvent);
 				return true;
 			}
 			return false;

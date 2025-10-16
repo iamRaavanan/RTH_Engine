@@ -63,14 +63,17 @@ project "RTH"
 	
 	filter "configurations:Debug"
 		defines "RTH_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "RTH_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "RTH_DIST"
+		buildoptions "/MD"
 		optimize "On"
 	
 	filter "action:vs*"
@@ -115,14 +118,17 @@ project "Playground"
 	
 	filter "configurations:Debug"
 		defines "RTH_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "RTH_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "RTH_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "action:vs*"
