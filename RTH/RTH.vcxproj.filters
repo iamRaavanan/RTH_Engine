@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Platforms">
+      <UniqueIdentifier>{DDACA145-4917-56BC-9255-0762FEFE3311}</UniqueIdentifier>
+    </Filter>
     <Filter Include="RTH">
       <UniqueIdentifier>{D31A880B-3F24-887C-C89F-9E7C34A8937C}</UniqueIdentifier>
     </Filter>
@@ -9,6 +12,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Platforms\WindowsWindow.h">
+      <Filter>Platforms</Filter>
+    </ClInclude>
     <ClInclude Include="Source\RTH.h" />
     <ClInclude Include="Source\RTH\Application.h">
       <Filter>RTH</Filter>
@@ -34,9 +40,15 @@
     <ClInclude Include="Source\RTH\Log.h">
       <Filter>RTH</Filter>
     </ClInclude>
+    <ClInclude Include="Source\RTH\Window.h">
+      <Filter>RTH</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Rthpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Platforms\WindowsWindow.cpp">
+      <Filter>Platforms</Filter>
+    </ClCompile>
     <ClCompile Include="Source\RTH\Application.cpp">
       <Filter>RTH</Filter>
     </ClCompile>

@@ -1,3 +1,4 @@
+#include "Rthpch.h"
 #include <RTH.h>
 
 class PlaygroundApp : public RTH::Application

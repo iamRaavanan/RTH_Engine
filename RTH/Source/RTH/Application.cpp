@@ -8,14 +8,16 @@ namespace RTH
 {
 	Application::Application()
 	{
+		mWindow = std::unique_ptr<Window>(Window::Create());
 	}
 	Application::~Application()
 	{
 	}
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		RTH_TRACE(e.ToString());
-		while (true);
+		while (mRunning)
+		{
+			mWindow->OnUpdate();
+		}
 	}
 }

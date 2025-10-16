@@ -46,13 +46,15 @@ project "RTH"
 	
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		--staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines
 		{
 			"RTH_PLATFORM_WINDOWS",
-			"RTH_BUILD_DLL"
+			"RTH_BUILD_DLL",
+			"RTH_ENABLE_ASSERTS"
 		}
 
 		postbuildcommands
@@ -103,12 +105,14 @@ project "Playground"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		--staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines
 		{
-			"RTH_PLATFORM_WINDOWS"
+			"RTH_PLATFORM_WINDOWS",
+			"RTH_ENABLE_ASSERTS"
 		}
 	
 	filter "configurations:Debug"

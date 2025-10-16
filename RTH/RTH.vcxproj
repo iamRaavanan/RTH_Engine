@@ -79,11 +79,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Rthpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_ENABLE_ASSERTS;RTH_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;Plugins\spdlog\include;Plugins\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -103,14 +103,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Rthpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_ENABLE_ASSERTS;RTH_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;Plugins\spdlog\include;Plugins\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -131,14 +131,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Rthpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RTH_PLATFORM_WINDOWS;RTH_BUILD_DLL;RTH_ENABLE_ASSERTS;RTH_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;Plugins\spdlog\include;Plugins\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -155,6 +155,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Platforms\WindowsWindow.h" />
     <ClInclude Include="Source\RTH.h" />
     <ClInclude Include="Source\RTH\Application.h" />
     <ClInclude Include="Source\RTH\Core.h" />
@@ -164,9 +165,11 @@
     <ClInclude Include="Source\RTH\Event\KeyEvent.h" />
     <ClInclude Include="Source\RTH\Event\MouseEvent.h" />
     <ClInclude Include="Source\RTH\Log.h" />
+    <ClInclude Include="Source\RTH\Window.h" />
     <ClInclude Include="Source\Rthpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Platforms\WindowsWindow.cpp" />
     <ClCompile Include="Source\RTH\Application.cpp" />
     <ClCompile Include="Source\RTH\Log.cpp" />
     <ClCompile Include="Source\Rthpch.cpp">
