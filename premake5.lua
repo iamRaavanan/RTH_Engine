@@ -46,8 +46,7 @@ project "RTH"
 	
 	filter "system:windows"
 		cppdialect "C++17"
-		--staticruntime "On"
-		staticruntime "Off"
+		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -105,8 +104,7 @@ project "Playground"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		--staticruntime "On"
-		staticruntime "Off"
+		staticruntime "On"
 		systemversion "latest"
 
 		defines
