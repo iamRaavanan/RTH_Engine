@@ -58,7 +58,7 @@ project "RTH"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../Binaries/" .. outputdir .. "/Playground")
+			("{COPYFILE} %{cfg.buildtarget.relpath} %{wks.location}/Binaries/" .. outputdir .. "/Playground")
 		}
 	
 	filter "configurations:Debug"

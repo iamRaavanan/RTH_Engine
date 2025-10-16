@@ -7,7 +7,7 @@ namespace RTH {
 	class RTH_API KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() cosnt { return mKeyCode; }
+		inline int GetKeyCode() const { return mKeyCode; }
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
 		KeyEvent(int keycode) : mKeyCode(keycode) {}
@@ -24,7 +24,7 @@ namespace RTH {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << mKeycode << " (" << mRepeatCount << " repats)";
+			ss << "KeyPressedEvent: " << mKeyCode << " (" << mRepeatCount << " repats)";
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(KeyPressed)
@@ -40,7 +40,7 @@ namespace RTH {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << mKeycode;
+			ss << "KeyPressedEvent: " << mKeyCode;
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(KeyReleased)

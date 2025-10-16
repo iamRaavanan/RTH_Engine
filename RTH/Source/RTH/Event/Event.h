@@ -29,7 +29,7 @@ namespace RTH {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class Event
+	class RTH_API Event
 	{
 		friend class EventDispatcher;
 	public:

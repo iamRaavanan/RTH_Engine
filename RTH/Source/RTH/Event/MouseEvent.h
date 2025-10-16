@@ -11,7 +11,7 @@ namespace RTH {
 		inline float GetX() const { return mMouseX; }
 		inline float GetY() const { return mMouseY; }
 
-		std::string ToString() cosnt override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseMovedEvent: " << mMouseX << ", " << mMouseY;
@@ -60,5 +60,27 @@ namespace RTH {
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseButtonReleased)
+	};
+
+	class RTH_API MouseScrolledEvent : public Event
+	{
+	public:
+		MouseScrolledEvent(const float xOffset, const float yOffset)
+			:mXoffset(xOffset), mYoffset(yOffset) { }
+
+		float GetXOffset() const { return mXoffset; }
+		float GetYOffset() const { return mYoffset; }
+
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseScrolledEvent: " << GetXOffset() << ", " << GetYOffset();
+			return ss.str();
+		}
+		EVENT_CLASS_TYPE(MouseScrolled)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+	private:
+		float mXoffset, mYoffset;
 	};
 }
