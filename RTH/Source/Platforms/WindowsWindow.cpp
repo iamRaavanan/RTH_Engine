@@ -3,6 +3,7 @@
 #include "RTH/Event/ApplicationEvent.h"
 #include "RTH/Event/MouseEvent.h"
 #include "RTH/Event/KeyEvent.h"
+#include "glad/glad.h"
 
 namespace RTH {
 
@@ -44,6 +45,8 @@ namespace RTH {
 		}
 		mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(mWindow);
+		int status = gladLoadGLLoader(GLADloadproc(glfwGetProcAddress));
+		RTH_CORE_ASSERT(status, "Failed to initialize GLAD!");
 		glfwSetWindowUserPointer(mWindow, &mData);
 		SetVSync(true);
 

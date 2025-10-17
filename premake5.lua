@@ -13,8 +13,9 @@ outputdir = "%{cfg.buildcfg}%{cfg.system}%{cfg.architecture}"
 -- Including the directories relative to the root folder
 IncludeDir = {}
 IncludeDir["GLFW"] = "RTH/Plugins/GLFW/include"
-
+IncludeDir["Glad"] = "RTH/Plugins/Glad/include"
 include "RTH/Plugins/GLFW"
+include "RTH/Plugins/Glad"
 
 project "RTH"
 	location "RTH"
@@ -36,11 +37,13 @@ project "RTH"
 	{
 		"%{prj.name}/Source",
 		"%{prj.name}/Plugins/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 	
@@ -53,7 +56,8 @@ project "RTH"
 		{
 			"RTH_PLATFORM_WINDOWS",
 			"RTH_BUILD_DLL",
-			"RTH_ENABLE_ASSERTS"
+			"RTH_ENABLE_ASSERTS",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
