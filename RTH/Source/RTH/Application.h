@@ -18,7 +18,11 @@ namespace RTH
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+
+		inline static Application& GetApplication() { return *sInstance; }
+		inline Window& GetWindow() { return *mWindow; }
 	private:
+		static Application* sInstance;
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> mWindow;
 		bool mRunning;

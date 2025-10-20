@@ -26,6 +26,7 @@ public:
 	PlaygroundApp()
 	{
 		PushLayer(new TestLayer());
+		PushOverlay(new RTH::ImGuiLayer());
 	}
 
 	~PlaygroundApp()

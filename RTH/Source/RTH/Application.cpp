@@ -5,7 +5,10 @@
 namespace RTH
 {
 #define BIND_EVENT_FN(callback) std::bind(&Application::callback, this, std::placeholders::_1)
+	Application* Application::sInstance = nullptr;
 	Application::Application() {
+		RTH_CORE_ASSERT(!sInstance, "Application already exist");
+		sInstance = this;
 		mWindow = std::unique_ptr<Window>(Window::Create());
 		mWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
@@ -35,6 +38,7 @@ namespace RTH
 	void Application::PushOverlay(Layer* layer)
 	{
 		mLayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	void Application::Run()

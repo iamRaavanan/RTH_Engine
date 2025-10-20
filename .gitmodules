@@ -4,3 +4,6 @@
 [submodule "RTH/Plugins/GLFW"]
 	path = RTH/Plugins/GLFW
 	url = https://github.com/iamRaavanan/glfw
+[submodule "RTH/Plugins/imgui"]
+	path = RTH/Plugins/imgui
+	url = https://github.com/iamRaavanan/imgui
