@@ -18,3 +18,5 @@
 #define RTH_ASSERT(x, ...)
 #define RTH_CORE_ASSERT(x, ...)
 #endif // RTH_ENABLE_ASSERTS
+
+#define RTH_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
