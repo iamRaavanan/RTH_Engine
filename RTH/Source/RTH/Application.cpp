@@ -50,9 +50,7 @@ namespace RTH
 			{
 				layer->OnUpdate();
 			}
-			// Testing the Input
-			auto [xPos, yPos] = Input::GetMousePosition();
-			RTH_CORE_TRACE("xPos: {0}, yPos: {1}", xPos, yPos);
+
 			mWindow->OnUpdate();
 		}
 	}

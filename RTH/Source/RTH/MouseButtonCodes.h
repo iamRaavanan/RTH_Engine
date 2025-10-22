@@ -1,0 +1,13 @@
+#pragma once
+#define RTH_MOUSE_BUTTON_1         0
+#define RTH_MOUSE_BUTTON_2         1
+#define RTH_MOUSE_BUTTON_3         2
+#define RTH_MOUSE_BUTTON_4         3
+#define RTH_MOUSE_BUTTON_5         4
+#define RTH_MOUSE_BUTTON_6         5
+#define RTH_MOUSE_BUTTON_7         6
+#define RTH_MOUSE_BUTTON_8         7
+#define RTH_MOUSE_BUTTON_LAST      RTH_MOUSE_BUTTON_8
+#define RTH_MOUSE_BUTTON_LEFT      RTH_MOUSE_BUTTON_1
+#define RTH_MOUSE_BUTTON_RIGHT     RTH_MOUSE_BUTTON_2
+#define RTH_MOUSE_BUTTON_MIDDLE    RTH_MOUSE_BUTTON_3

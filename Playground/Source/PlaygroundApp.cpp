@@ -11,12 +11,20 @@ public:
 
 	void OnUpdate() override
 	{
-		RTH_INFO("TestLayer::Update");
+		if (RTH::Input::IsKeyPressed(RTH_KEY_TAB))
+			RTH_TRACE("Tab key is pressed! via Poll");
 	}
 
 	void OnEvent(RTH::Event& evnt) override
 	{
-		RTH_TRACE("{0}", evnt.ToString());
+		//RTH_TRACE("{0}", evnt.ToString());
+		if (evnt.GetEventType() == RTH::EventType::KeyPressed)
+		{
+			RTH::KeyPressedEvent& e = (RTH::KeyPressedEvent&)evnt;
+			if (e.GetKeyCode() == RTH_KEY_TAB)
+				RTH_TRACE("Tab key is pressed! via Event");
+			RTH_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 
