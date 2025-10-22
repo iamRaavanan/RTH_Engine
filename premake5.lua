@@ -1,6 +1,6 @@
 workspace "RTH"
 	architecture "x64"
-
+	startproject "Playground"
 	configurations
 	{
 		"Debug",
@@ -23,6 +23,7 @@ project "RTH"
 	location "RTH"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -53,7 +54,6 @@ project "RTH"
 	
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -71,17 +71,17 @@ project "RTH"
 	
 	filter "configurations:Debug"
 		defines "RTH_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "RTH_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "RTH_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 	
 	filter "action:vs*"
@@ -92,6 +92,7 @@ project "Playground"
 	location "Playground"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -115,7 +116,6 @@ project "Playground"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -126,7 +126,7 @@ project "Playground"
 	
 	filter "configurations:Debug"
 		defines "RTH_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
