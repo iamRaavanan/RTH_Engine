@@ -1,6 +1,7 @@
 #include "Rthpch.h"
 #include "Application.h"
 #include "Event/Event.h"
+#include "Input.h"
 
 namespace RTH
 {
@@ -49,6 +50,9 @@ namespace RTH
 			{
 				layer->OnUpdate();
 			}
+			// Testing the Input
+			auto [xPos, yPos] = Input::GetMousePosition();
+			RTH_CORE_TRACE("xPos: {0}, yPos: {1}", xPos, yPos);
 			mWindow->OnUpdate();
 		}
 	}

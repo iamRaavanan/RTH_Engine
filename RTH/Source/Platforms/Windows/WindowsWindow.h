@@ -19,6 +19,7 @@ namespace RTH {
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
+		inline virtual void* GetNativeWindow() const { return mWindow; }
 	private:
 		
 		struct WindowData
