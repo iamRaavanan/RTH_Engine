@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "RTH/Plugins/GLFW/include"
 IncludeDir["Glad"] = "RTH/Plugins/Glad/include"
 IncludeDir["Imgui"] = "RTH/Plugins/imgui"
+IncludeDir["glm"] = "RTH/Plugins/glm"
 include "RTH/Plugins/GLFW"
 include "RTH/Plugins/Glad"
 include "RTH/Plugins/Imgui"
@@ -33,7 +34,9 @@ project "RTH"
 	files
 	{
 		"%{prj.name}/Source/**.h",
-		"%{prj.name}/Source/**.cpp"
+		"%{prj.name}/Source/**.cpp",
+		"%{prj.name}/Plugins/glm/glm/**.hpp",
+		"%{prj.name}/Plugins/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -42,7 +45,8 @@ project "RTH"
 		"%{prj.name}/Plugins/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.Imgui}"
+		"%{IncludeDir.Imgui}",
+		"%{IncludeDir.glm}"
 	}
 	links
 	{
@@ -106,7 +110,8 @@ project "Playground"
 	includedirs
 	{
 		"RTH/Source",
-		"RTH/Plugins/spdlog/include"
+		"RTH/Plugins/spdlog/include",
+		"%{IncludeDir.glm}"
 	}
 
 	links

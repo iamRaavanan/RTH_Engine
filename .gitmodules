@@ -7,3 +7,6 @@
 [submodule "RTH/Plugins/imgui"]
 	path = RTH/Plugins/imgui
 	url = https://github.com/iamRaavanan/imgui
+[submodule "RTH/Plugins/glm"]
+	path = RTH/Plugins/glm
+	url = https://github.com/g-truc/glm
