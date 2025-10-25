@@ -4,6 +4,7 @@
 #include "Event/ApplicationEvent.h"
 #include "RTH/LayerStack.h"
 #include "Window.h"
+#include "RTH/ImGui/ImGuiLayer.h"
 
 namespace RTH
 {
@@ -25,6 +26,7 @@ namespace RTH
 		static Application* sInstance;
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> mWindow;
+		ImGuiLayer* mImGuiLayer;
 		bool mRunning;
 
 		LayerStack mLayerStack;

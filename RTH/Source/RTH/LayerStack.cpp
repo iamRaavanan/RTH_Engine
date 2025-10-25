@@ -5,7 +5,7 @@ namespace RTH
 {
 	LayerStack::LayerStack()
 	{
-		mLayerInsert = mLayers.begin();
+
 	}
 
 	LayerStack::~LayerStack()
@@ -16,7 +16,8 @@ namespace RTH
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		mLayerInsert = mLayers.emplace(mLayerInsert, layer);
+		mLayers.emplace(mLayers.begin() + mLayerInsertIndex, layer);
+		mLayerInsertIndex++;
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
@@ -30,7 +31,7 @@ namespace RTH
 		if (it != mLayers.end())
 		{
 			mLayers.erase(it);
-			mLayerInsert--;
+			mLayerInsertIndex--;
 		}
 	}
 
