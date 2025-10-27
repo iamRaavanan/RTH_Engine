@@ -62,6 +62,7 @@ project "RTH"
 
 		defines
 		{
+			"IMGUI_API=__declspec(dllexport)",
 			"RTH_PLATFORM_WINDOWS",
 			"RTH_BUILD_DLL",
 			"RTH_ENABLE_ASSERTS",
@@ -111,6 +112,7 @@ project "Playground"
 	{
 		"RTH/Source",
 		"RTH/Plugins/spdlog/include",
+		"RTH/Plugins/imgui",
 		"%{IncludeDir.glm}"
 	}
 
@@ -125,6 +127,7 @@ project "Playground"
 
 		defines
 		{
+			"IMGUI_API=__declspec(dllimport)",
 			"RTH_PLATFORM_WINDOWS",
 			"RTH_ENABLE_ASSERTS"
 		}

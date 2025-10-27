@@ -1,5 +1,6 @@
 #include "Rthpch.h"
 #include <RTH.h>
+#include "imgui.h"
 
 class TestLayer : public RTH::Layer
 {
@@ -15,6 +16,12 @@ public:
 			RTH_TRACE("Tab key is pressed! via Poll");
 	}
 
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Gello World");
+		ImGui::End();
+	}
 	void OnEvent(RTH::Event& evnt) override
 	{
 		//RTH_TRACE("{0}", evnt.ToString());
