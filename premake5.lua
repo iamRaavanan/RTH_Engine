@@ -22,9 +22,10 @@ include "RTH/Plugins/Imgui"
 
 project "RTH"
 	location "RTH"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -37,6 +38,11 @@ project "RTH"
 		"%{prj.name}/Source/**.cpp",
 		"%{prj.name}/Plugins/glm/glm/**.hpp",
 		"%{prj.name}/Plugins/glm/glm/**.inl"
+	}
+	
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -57,7 +63,6 @@ project "RTH"
 	}
 	
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -69,25 +74,25 @@ project "RTH"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{COPYFILE} %{cfg.buildtarget.relpath} %{wks.location}/Binaries/" .. outputdir .. "/Playground")
-		}
+		-- postbuildcommands
+		-- {
+		-- 	("{COPYFILE} %{cfg.buildtarget.relpath} %{wks.location}/Binaries/" .. outputdir .. "/Playground")
+		-- }
 	
 	filter "configurations:Debug"
 		defines "RTH_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "RTH_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "RTH_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 	
 	filter "action:vs*"
 		buildoptions { "/utf-8" }
@@ -97,7 +102,8 @@ project "Playground"
 	location "Playground"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -122,7 +128,6 @@ project "Playground"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -135,17 +140,17 @@ project "Playground"
 	filter "configurations:Debug"
 		defines "RTH_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "RTH_RELEASE"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "RTH_DIST"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "action:vs*"
 		buildoptions { "/utf-8" }
