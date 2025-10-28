@@ -30,6 +30,8 @@ namespace RTH
 		bool mRunning;
 
 		LayerStack mLayerStack;
+
+		unsigned int mVertexArray, mVertexBuffer, mIndexBuffer;
 	};
 	Application* CreateApplication();
 }

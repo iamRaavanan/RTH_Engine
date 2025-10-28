@@ -15,6 +15,8 @@ namespace RTH
 		glfwMakeContextCurrent(mWindow);
 		int status = gladLoadGLLoader(GLADloadproc(glfwGetProcAddress));
 		RTH_CORE_ASSERT(status, "Failed to initialize GLAD!");
+
+		RTH_CORE_TRACE("OpenGL Renderer : {0} - {1}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)), reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 	}
 
 	void OpenGLContext::SwapBuffers()

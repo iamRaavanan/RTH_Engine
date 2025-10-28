@@ -57,8 +57,6 @@ namespace RTH
 
 	void ImGuiLayer::Begin()
 	{
-		glClearColor(1.0f, 0.4f, 0.7f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
