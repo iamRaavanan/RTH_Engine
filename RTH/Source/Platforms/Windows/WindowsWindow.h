@@ -1,6 +1,7 @@
 #pragma once
 #include "RTH/Window.h"
 #include "GLFW/glfw3.h"
+#include "RTH/Renderer/GraphicContext.h"
 
 namespace RTH {
 
@@ -31,6 +32,7 @@ namespace RTH {
 		};
 
 		GLFWwindow* mWindow;
+		GraphicContex* mContext;
 		WindowData mData;
 
 		virtual void Init(const WindowProps& props);

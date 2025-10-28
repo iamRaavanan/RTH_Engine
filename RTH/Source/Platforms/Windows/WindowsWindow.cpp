@@ -3,7 +3,7 @@
 #include "RTH/Event/ApplicationEvent.h"
 #include "RTH/Event/MouseEvent.h"
 #include "RTH/Event/KeyEvent.h"
-#include "glad/glad.h"
+#include "Platforms/OpenGL/OpenGLContext.h"
 
 namespace RTH {
 
@@ -36,7 +36,7 @@ namespace RTH {
 		mData.Height = props.Height;
 
 		RTH_CORE_INFO("Creating window {0} {1} {2}", props.Title, props.Width, props.Height);
-
+		
 		if (!bIsGLFWInitialized)
 		{
 			int success = glfwInit();
@@ -44,9 +44,9 @@ namespace RTH {
 			bIsGLFWInitialized = true;
 		}
 		mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(mWindow);
-		int status = gladLoadGLLoader(GLADloadproc(glfwGetProcAddress));
-		RTH_CORE_ASSERT(status, "Failed to initialize GLAD!");
+		mContext = new OpenGLContext(mWindow);
+		mContext->Init();
+		
 		glfwSetWindowUserPointer(mWindow, &mData);
 		SetVSync(true);
 
@@ -131,7 +131,7 @@ namespace RTH {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(mWindow);
+		mContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
