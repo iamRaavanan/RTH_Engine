@@ -38,6 +38,27 @@ namespace RTH
 
 		unsigned int indices[3] = { 0, 1, 2 };
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		std::string vertexSrc = R"(
+			#version 460 core
+			layout(location  = 0) in vec3 pos;
+			out vec3 vPos;
+			void main ()
+			{
+				vPos = pos * 0.5 +0.5;
+				gl_Position = vec4(pos, 1.0);
+			}
+		)";
+		std::string fragSrc = R"(
+			#version 460 core
+			layout(location  = 0) out vec4 color;
+			in vec3 vPos;
+			void main ()
+			{
+				color = vec4(vPos, 1.0);
+			}
+		)";
+		mShader.reset(new Shader(vertexSrc, fragSrc));
 	}
 	Application::~Application()
 	{
@@ -74,6 +95,7 @@ namespace RTH
 		{
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			mShader->Bind();
 			glBindVertexArray(mVertexArray);
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 			for (Layer* layer : mLayerStack)

@@ -5,6 +5,7 @@
 #include "RTH/LayerStack.h"
 #include "Window.h"
 #include "RTH/ImGui/ImGuiLayer.h"
+#include "RTH/Renderer/Shader.h"
 
 namespace RTH
 {
@@ -26,6 +27,7 @@ namespace RTH
 		static Application* sInstance;
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> mWindow;
+		std::unique_ptr<Shader> mShader;
 		ImGuiLayer* mImGuiLayer;
 		bool mRunning;
 
