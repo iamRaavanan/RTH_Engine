@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "RTH/ImGui/ImGuiLayer.h"
 #include "RTH/Renderer/Shader.h"
+#include "RTH/Renderer/Buffer.h"
 
 namespace RTH
 {
@@ -33,7 +34,9 @@ namespace RTH
 
 		LayerStack mLayerStack;
 
-		unsigned int mVertexArray, mVertexBuffer, mIndexBuffer;
+		unsigned int mVertexArray;
+		std::unique_ptr<VertexBuffer> mVertexBuffer;
+		std::unique_ptr<IndexBuffer> mIndexBuffer;
 	};
 	Application* CreateApplication();
 }
