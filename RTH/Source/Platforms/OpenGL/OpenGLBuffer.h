@@ -9,11 +9,14 @@ namespace RTH
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void Bind() const;
-		virtual void UnBind() const;
+		virtual void Bind() const override;
+		virtual void UnBind() const override;
 
+		virtual const BufferLayout& GetLayout() const override { return mBufferLayout; }
+		virtual void SetLayout(const BufferLayout& layout) override { mBufferLayout = layout; }
 	private:
 		uint32_t mRenderId;
+		BufferLayout mBufferLayout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
