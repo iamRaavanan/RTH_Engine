@@ -38,8 +38,8 @@ namespace RTH
 		std::shared_ptr<VertexArray> mVertexArray;
 
 		// Test
-		std::unique_ptr<Shader> testSquareShader;
-		std::unique_ptr<VertexArray> testSquareVA;
+		std::shared_ptr<Shader> testSquareShader;
+		std::shared_ptr<VertexArray> testSquareVA;
 	};
 	Application* CreateApplication();
 }

@@ -10,12 +10,12 @@ namespace RTH
 		// Decide which Graphics API will be using
 		switch (Renderer::GetAPI())
 		{
-			case RenderAPI::None:
+			case RendererAPI::API::None:
 			{
 				RTH_CORE_ASSERT(false, "RendererAPI::None is not supported!");
 				return nullptr;
 			}
-			case RenderAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 			{
 				return new OpenGLVertexBuffer(vertices, size);
 			}
@@ -28,12 +28,12 @@ namespace RTH
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RenderAPI::None:
+			case RendererAPI::API::None:
 			{
 				RTH_CORE_ASSERT(false, "RendererAPI::None is not supported!");
 				return nullptr;
 			}
-			case RenderAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 			{
 				return new OpenGLIndexBuffer(indices, size);
 			}

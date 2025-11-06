@@ -1,17 +1,17 @@
 #pragma once
+#include "RenderCommand.h"
 
 namespace RTH
 {
-	enum class RenderAPI
-	{
-		None = 0, OpenGL = 1
-	};
-
 	class Renderer
 	{
 	public:
-		inline static RenderAPI GetAPI() { return sRenderAPI; }
-	private:
-		static RenderAPI sRenderAPI;
+		static void BeginScene();
+		static void EndScene();
+		
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+	
 	};
 }

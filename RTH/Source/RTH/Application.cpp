@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "Event/Event.h"
 #include "Input.h"
-#include <glad/glad.h>
+#include "RTH/Renderer/Renderer.h"
 
 namespace RTH
 {
@@ -146,16 +146,16 @@ namespace RTH
 	{
 		while (mRunning)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+			RenderCommand::Clear();
 
+			Renderer::BeginScene();
 			testSquareShader->Bind();
-			testSquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, testSquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(testSquareVA);
 
 			mShader->Bind();
-			mVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, mVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(mVertexArray);
+
 			for (Layer* layer : mLayerStack)
 			{
 				layer->OnUpdate();
