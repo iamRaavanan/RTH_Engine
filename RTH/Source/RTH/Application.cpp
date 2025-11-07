@@ -9,7 +9,9 @@ namespace RTH
 #define BIND_EVENT_FN(callback) std::bind(&Application::callback, this, std::placeholders::_1)
 	Application* Application::sInstance = nullptr;
 
-	Application::Application() {
+	Application::Application() 
+		: mCamera(-2.0f, 2.0f, -2.0f, 2.0f) 
+	{
 		RTH_CORE_ASSERT(!sInstance, "Application already exist");
 		sInstance = this;
 		mWindow = std::unique_ptr<Window>(Window::Create());
@@ -44,13 +46,14 @@ namespace RTH
 			#version 460 core
 			layout(location  = 0) in vec3 pos;
 			layout(location  = 1) in vec4 color;
+			uniform mat4 u_ViewProj;
 			out vec3 vPos;
 			out vec4 vCol;
 			void main ()
 			{
 				vPos = pos;
 				vCol = color;
-				gl_Position = vec4(pos, 1.0);
+				gl_Position = u_ViewProj * vec4(pos, 1.0);
 			}
 		)";
 		std::string fragSrc = R"(
@@ -93,11 +96,12 @@ namespace RTH
 		std::string testSquarevertexSrc = R"(
 			#version 460 core
 			layout(location  = 0) in vec3 pos;
+			uniform mat4 u_ViewProj;
 			out vec3 vPos;
 			void main ()
 			{
 				vPos = pos;
-				gl_Position = vec4(pos, 1.0);
+				gl_Position = u_ViewProj * vec4(pos, 1.0);
 			}
 		)";
 		std::string testSquarefragSrc = R"(
@@ -148,13 +152,12 @@ namespace RTH
 		{
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			RenderCommand::Clear();
+			/*mCamera.SetPosition({0.5f, 0.5f, 0.0f});
+			mCamera.SetRotation(45.0f);*/
+			Renderer::BeginScene(mCamera);
+			Renderer::Submit(testSquareShader, testSquareVA);
 
-			Renderer::BeginScene();
-			testSquareShader->Bind();
-			Renderer::Submit(testSquareVA);
-
-			mShader->Bind();
-			Renderer::Submit(mVertexArray);
+			Renderer::Submit(mShader, mVertexArray);
 
 			for (Layer* layer : mLayerStack)
 			{

@@ -8,6 +8,7 @@
 #include "RTH/Renderer/Shader.h"
 #include "RTH/Renderer/Buffer.h"
 #include "RTH/Renderer/VertexArray.h"
+#include "RTH/Renderer/Camera.h"
 
 namespace RTH
 {
@@ -29,7 +30,7 @@ namespace RTH
 		static Application* sInstance;
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> mWindow;
-		std::unique_ptr<Shader> mShader;
+		std::shared_ptr<Shader> mShader;
 		ImGuiLayer* mImGuiLayer;
 		bool mRunning;
 
@@ -40,6 +41,8 @@ namespace RTH
 		// Test
 		std::shared_ptr<Shader> testSquareShader;
 		std::shared_ptr<VertexArray> testSquareVA;
+
+		OrthographicCamera mCamera;
 	};
 	Application* CreateApplication();
 }

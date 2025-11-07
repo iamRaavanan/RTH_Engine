@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include<glm/glm.hpp>
 namespace RTH
 {
 	class Shader
@@ -11,6 +11,8 @@ namespace RTH
 
 		void Bind();
 		void UnBind();
+
+		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
 	private:
 		uint32_t mRendererId;
