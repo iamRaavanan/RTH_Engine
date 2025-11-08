@@ -5,10 +5,6 @@
 #include "RTH/LayerStack.h"
 #include "Window.h"
 #include "RTH/ImGui/ImGuiLayer.h"
-#include "RTH/Renderer/Shader.h"
-#include "RTH/Renderer/Buffer.h"
-#include "RTH/Renderer/VertexArray.h"
-#include "RTH/Renderer/Camera.h"
 
 namespace RTH
 {
@@ -30,19 +26,10 @@ namespace RTH
 		static Application* sInstance;
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> mWindow;
-		std::shared_ptr<Shader> mShader;
 		ImGuiLayer* mImGuiLayer;
 		bool mRunning;
 
 		LayerStack mLayerStack;
-
-		std::shared_ptr<VertexArray> mVertexArray;
-
-		// Test
-		std::shared_ptr<Shader> testSquareShader;
-		std::shared_ptr<VertexArray> testSquareVA;
-
-		OrthographicCamera mCamera;
 	};
 	Application* CreateApplication();
 }

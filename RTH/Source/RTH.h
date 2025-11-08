@@ -10,3 +10,12 @@
 #include "RTH/ImGui/ImGuiLayer.h"
 
 #include "RTH/Entrypoint.h"
+
+#include "RTH/Renderer/Buffer.h"
+#include "RTH/Renderer/Camera.h"
+#include "RTH/Renderer/GraphicContext.h"
+#include "RTH/Renderer/RenderCommand.h"
+#include "RTH/Renderer/Renderer.h"
+#include "RTH/Renderer/RendererAPI.h"
+#include "RTH/Renderer/Shader.h"
+#include "RTH/Renderer/VertexArray.h"
