@@ -107,33 +107,22 @@ public:
 		//=============================== TEST SQUARE===============================
 	}
 
-	void OnUpdate() override
+	void OnUpdate(RTH::Timestep deltaTime) override
 	{
+		RTH_CORE_TRACE("DeltaTime: {0}s : {1}ms", deltaTime.GetSeconds(), deltaTime.GetMilliSeconds());
 		if (RTH::Input::IsKeyPressed(RTH_KEY_LEFT))
-		{
-			mCameraPos.x -= mCameraMoveSpeed;
-		}
+			mCameraPos.x -= mCameraMoveSpeed * deltaTime;
 		else if (RTH::Input::IsKeyPressed(RTH_KEY_RIGHT))
-		{
-			mCameraPos.x += mCameraMoveSpeed;
-		}
+			mCameraPos.x += mCameraMoveSpeed * deltaTime;
 		if (RTH::Input::IsKeyPressed(RTH_KEY_DOWN))
-		{
-			mCameraPos.y -= mCameraMoveSpeed;
-		}
+			mCameraPos.y -= mCameraMoveSpeed * deltaTime;
 		else if (RTH::Input::IsKeyPressed(RTH_KEY_UP))
-		{
-			mCameraPos.y += mCameraMoveSpeed;
-		}
+			mCameraPos.y += mCameraMoveSpeed * deltaTime;
 
 		if (RTH::Input::IsKeyPressed(RTH_KEY_A))
-		{
-			mCameraRotation += mCameraRotationSpeed;
-		}
+			mCameraRotation += mCameraRotationSpeed * deltaTime;
 		if (RTH::Input::IsKeyPressed(RTH_KEY_D))
-		{
-			mCameraRotation -= mCameraRotationSpeed;
-		}
+			mCameraRotation -= mCameraRotationSpeed * deltaTime;
 
 		RTH::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		RTH::RenderCommand::Clear();
@@ -186,9 +175,9 @@ private:
 
 	RTH::OrthographicCamera mCamera;
 	glm::vec3 mCameraPos;
-	float mCameraMoveSpeed = 0.1f;
+	float mCameraMoveSpeed = 2.0f;
 	float mCameraRotation = 0.0f;
-	float mCameraRotationSpeed = 1.0f;
+	float mCameraRotationSpeed = 180.0f;
 };
 
 class PlaygroundApp : public RTH::Application

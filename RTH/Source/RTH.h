@@ -2,6 +2,8 @@
 #include "RTH/Application.h"
 #include "RTH/Layer.h"
 
+#include "RTH/Core/Timestep.h"
+
 #include "RTH/Input.h"
 #include "RTH/KeyCodes.h"
 #include "RTH/MouseButtonCodes.h"

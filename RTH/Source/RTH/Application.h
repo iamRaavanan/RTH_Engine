@@ -29,6 +29,7 @@ namespace RTH
 		ImGuiLayer* mImGuiLayer;
 		bool mRunning;
 
+		float mLastFrameTime;
 		LayerStack mLayerStack;
 	};
 	Application* CreateApplication();

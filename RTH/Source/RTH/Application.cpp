@@ -3,6 +3,8 @@
 #include "Event/Event.h"
 #include "Input.h"
 #include "RTH/Renderer/Renderer.h"
+#include "RTH/Core/Timestep.h"
+#include <GLFW/glfw3.h>
 
 namespace RTH
 {
@@ -52,10 +54,12 @@ namespace RTH
 	{
 		while (mRunning)
 		{
+			float time = glfwGetTime();
+			Timestep timestep = time - mLastFrameTime;
+			mLastFrameTime = time;
+
 			for (Layer* layer : mLayerStack)
-			{
-				layer->OnUpdate();
-			}
+				layer->OnUpdate(timestep);
 
 			mImGuiLayer->Begin();
 			for (Layer* layer : mLayerStack)
