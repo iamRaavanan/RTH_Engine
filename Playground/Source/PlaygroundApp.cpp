@@ -1,6 +1,7 @@
 #include "Rthpch.h"
 #include <RTH.h>
 #include "imgui.h"
+#include<glm/gtc/matrix_transform.hpp>
 
 class TestLayer : public RTH::Layer
 {
@@ -131,7 +132,17 @@ public:
 		mCamera.SetPosition(mCameraPos);
 		mCamera.SetRotation(mCameraRotation);
 		RTH::Renderer::BeginScene(mCamera);
-		RTH::Renderer::Submit(testSquareShader, testSquareVA);
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				glm::vec3 pos(-1.5f + i * 0.16f, -1.5f + j * 0.16f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				RTH::Renderer::Submit(testSquareShader, testSquareVA, transform);
+			}
+		}
 
 		RTH::Renderer::Submit(mShader, mVertexArray);
 
