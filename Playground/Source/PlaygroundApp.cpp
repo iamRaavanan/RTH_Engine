@@ -84,7 +84,7 @@ public:
 		testSquareIB.reset(RTH::IndexBuffer::Create(sqindices, sizeof(sqindices) / sizeof(uint32_t)));
 		testSquareVA->SetIndexBuffer(testSquareIB);
 
-		std::string testSquarevertexSrc = R"(
+		std::string flatColorvertexSrc = R"(
 			#version 460 core
 			layout(location  = 0) in vec3 pos;
 			uniform mat4 u_ViewProj;
@@ -96,16 +96,17 @@ public:
 				gl_Position = u_ViewProj * u_Transform * vec4(pos, 1.0);
 			}
 		)";
-		std::string testSquarefragSrc = R"(
+		std::string flatColorfragSrc = R"(
 			#version 460 core
 			layout(location  = 0) out vec4 color;
 			in vec3 vPos;
+			uniform vec4 u_Color;
 			void main ()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = u_Color;
 			}
 		)";
-		testSquareShader.reset(new RTH::Shader(testSquarevertexSrc, testSquarefragSrc));
+		flatColorShader.reset(new RTH::Shader(flatColorvertexSrc, flatColorfragSrc));
 
 		//=============================== TEST SQUARE===============================
 	}
@@ -127,20 +128,27 @@ public:
 		if (RTH::Input::IsKeyPressed(RTH_KEY_D))
 			mCameraRotation -= mCameraRotationSpeed * deltaTime;
 
-		RTH::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		RTH::RenderCommand::SetClearColor({ 0.8f, 0.8f, 0.1f, 1.0f });
 		RTH::RenderCommand::Clear();
 		mCamera.SetPosition(mCameraPos);
 		mCamera.SetRotation(mCameraRotation);
 		RTH::Renderer::BeginScene(mCamera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		glm::vec4 whiteColor(0.8f, 0.8f, 0.8f, 1.0f);
+		glm::vec4 blackColor(0.1f, 0.1f, 0.1f, 1.0f);
 		for (int i = 0; i < 20; i++)
 		{
 			for (int j = 0; j < 20; j++)
 			{
 				glm::vec3 pos(-1.5f + i * 0.16f, -1.5f + j * 0.16f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				RTH::Renderer::Submit(testSquareShader, testSquareVA, transform);
+				if (i % 2 == 0)
+					flatColorShader->UploadUniformFloat4("u_Color", whiteColor);
+				else
+					flatColorShader->UploadUniformFloat4("u_Color", blackColor);
+
+				RTH::Renderer::Submit(flatColorShader, testSquareVA, transform);
 			}
 		}
 
@@ -183,7 +191,7 @@ private:
 	std::shared_ptr<RTH::Shader> mShader;
 	std::shared_ptr<RTH::VertexArray> mVertexArray;
 	// Test
-	std::shared_ptr<RTH::Shader> testSquareShader;
+	std::shared_ptr<RTH::Shader> flatColorShader;
 	std::shared_ptr<RTH::VertexArray> testSquareVA;
 
 	RTH::OrthographicCamera mCamera;
