@@ -1,5 +1,6 @@
 #include "Rthpch.h"
 #include "Renderer.h"
+#include "Platforms/OpenGL/OpenGLShader.h"
 
 namespace RTH
 {
@@ -24,8 +25,8 @@ namespace RTH
 		* Submit into the Render command queue.
 		*/
 		shader->Bind();
-		shader->UploadUniformMat4("u_ViewProj", mSceneData->mViewProjMat);
-		shader->UploadUniformMat4("u_Transform", transform);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProj", mSceneData->mViewProjMat);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}

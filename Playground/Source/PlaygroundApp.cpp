@@ -1,7 +1,9 @@
 #include "Rthpch.h"
 #include <RTH.h>
+#include "Platforms/OpenGL/OpenGLShader.h"
 #include "imgui.h"
 #include<glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class TestLayer : public RTH::Layer
 {
@@ -58,7 +60,7 @@ public:
 				color = vCol;
 			}
 		)";
-		mShader.reset(new RTH::Shader(vertexSrc, fragSrc));
+		mShader.reset(RTH::Shader::Create(vertexSrc, fragSrc));
 		//=============================== TEST SQUARE===============================
 
 		testSquareVA.reset(RTH::VertexArray::Create());
@@ -100,13 +102,13 @@ public:
 			#version 460 core
 			layout(location  = 0) out vec4 color;
 			in vec3 vPos;
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 			void main ()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0f);
 			}
 		)";
-		flatColorShader.reset(new RTH::Shader(flatColorvertexSrc, flatColorfragSrc));
+		flatColorShader.reset(RTH::Shader::Create(flatColorvertexSrc, flatColorfragSrc));
 
 		//=============================== TEST SQUARE===============================
 	}
@@ -128,25 +130,22 @@ public:
 		if (RTH::Input::IsKeyPressed(RTH_KEY_D))
 			mCameraRotation -= mCameraRotationSpeed * deltaTime;
 
-		RTH::RenderCommand::SetClearColor({ 0.8f, 0.8f, 0.1f, 1.0f });
+		RTH::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		RTH::RenderCommand::Clear();
 		mCamera.SetPosition(mCameraPos);
 		mCamera.SetRotation(mCameraRotation);
 		RTH::Renderer::BeginScene(mCamera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-		glm::vec4 whiteColor(0.8f, 0.8f, 0.8f, 1.0f);
-		glm::vec4 blackColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+		std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->Bind();
+		std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", mSquareColor);
 		for (int i = 0; i < 20; i++)
 		{
 			for (int j = 0; j < 20; j++)
 			{
 				glm::vec3 pos(-1.5f + i * 0.16f, -1.5f + j * 0.16f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				if (i % 2 == 0)
-					flatColorShader->UploadUniformFloat4("u_Color", whiteColor);
-				else
-					flatColorShader->UploadUniformFloat4("u_Color", blackColor);
 
 				RTH::Renderer::Submit(flatColorShader, testSquareVA, transform);
 			}
@@ -158,7 +157,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(mSquareColor));
+		ImGui::End();
 	}
 	void OnEvent(RTH::Event& evnt) override
 	{
@@ -199,6 +200,7 @@ private:
 	float mCameraMoveSpeed = 2.0f;
 	float mCameraRotation = 0.0f;
 	float mCameraRotationSpeed = 180.0f;
+	glm::vec3 mSquareColor = { 0.2f, 0.4f, 0.8f };
 };
 
 class PlaygroundApp : public RTH::Application
