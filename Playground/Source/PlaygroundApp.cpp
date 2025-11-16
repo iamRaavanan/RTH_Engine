@@ -19,7 +19,7 @@ public:
 			0.0f, 0.5f, 0.0f, 0.7f, 0.7f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<RTH::VertexBuffer> vertexBuffer;
+		RTH::Ref<RTH::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(RTH::VertexBuffer::Create(vertices, sizeof(vertices)));
 		RTH::BufferLayout layout = {
 				{ RTH::ShaderDataType::Float3, "pos"},
@@ -30,7 +30,7 @@ public:
 		mVertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<RTH::IndexBuffer> indexBuffer;
+		RTH::Ref<RTH::IndexBuffer> indexBuffer;
 		indexBuffer.reset(RTH::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		mVertexArray->SetIndexBuffer(indexBuffer);
 
@@ -73,7 +73,7 @@ public:
 			-0.75f, 0.75f, 0.0f
 		};
 
-		std::shared_ptr<RTH::VertexBuffer> testSquareVB;
+		RTH::Ref<RTH::VertexBuffer> testSquareVB;
 		testSquareVB.reset(RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices)));
 		testSquareVB->SetLayout({
 				{RTH::ShaderDataType::Float3, "pos"},
@@ -82,7 +82,7 @@ public:
 		testSquareVA->AddVertexBuffer(testSquareVB);
 
 		uint32_t sqindices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<RTH::IndexBuffer> testSquareIB;
+		RTH::Ref<RTH::IndexBuffer> testSquareIB;
 		testSquareIB.reset(RTH::IndexBuffer::Create(sqindices, sizeof(sqindices) / sizeof(uint32_t)));
 		testSquareVA->SetIndexBuffer(testSquareIB);
 
@@ -189,11 +189,11 @@ public:
 	}
 private:
 
-	std::shared_ptr<RTH::Shader> mShader;
-	std::shared_ptr<RTH::VertexArray> mVertexArray;
+	RTH::Ref<RTH::Shader> mShader;
+	RTH::Ref<RTH::VertexArray> mVertexArray;
 	// Test
-	std::shared_ptr<RTH::Shader> flatColorShader;
-	std::shared_ptr<RTH::VertexArray> testSquareVA;
+	RTH::Ref<RTH::Shader> flatColorShader;
+	RTH::Ref<RTH::VertexArray> testSquareVA;
 
 	RTH::OrthographicCamera mCamera;
 	glm::vec3 mCameraPos;

@@ -1,5 +1,7 @@
 #pragma once
-#ifdef RTH_PLATFORM_WINDOWS
+#include <memory>
+
+#ifdef RTH_PLATFORM_WINDOWS	
 #if RTH_DYNAMIC_LINK
 	#ifdef RTH_BUILD_DLL
 		#define RTH_API __declspec(dllexport)
@@ -24,3 +26,13 @@
 #endif // RTH_ENABLE_ASSERTS
 
 #define RTH_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
+
+namespace RTH
+{
+	template<typename T>
+	using Score = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

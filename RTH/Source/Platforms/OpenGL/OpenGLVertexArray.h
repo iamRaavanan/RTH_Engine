@@ -12,14 +12,14 @@ namespace RTH
 		virtual void Bind() const override;
 		virtual void UnBind() const override;
 
-		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+		virtual void AddVertexBuffer(const RTH::Ref<VertexBuffer>& vertexBuffer) override;
+		virtual void SetIndexBuffer(const RTH::Ref<IndexBuffer>& indexBuffer) override;
 
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const { return mVertexBuffer; }
-		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const { return mIndexBuffer; }
+		virtual const std::vector<RTH::Ref<VertexBuffer>>& GetVertexBuffers() const { return mVertexBuffer; }
+		virtual const RTH::Ref<IndexBuffer>& GetIndexBuffer() const { return mIndexBuffer; }
 	private:
-		std::vector<std::shared_ptr<VertexBuffer>> mVertexBuffer;
-		std::shared_ptr<IndexBuffer> mIndexBuffer;
+		std::vector<RTH::Ref<VertexBuffer>> mVertexBuffer;
+		RTH::Ref<IndexBuffer> mIndexBuffer;
 		uint32_t mRenderId;
 	};
 }

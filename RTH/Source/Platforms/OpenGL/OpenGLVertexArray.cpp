@@ -45,7 +45,7 @@ namespace RTH
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const RTH::Ref<VertexBuffer>& vertexBuffer)
 	{
 		RTH_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
@@ -63,7 +63,7 @@ namespace RTH
 		mVertexBuffer.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const RTH::Ref<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(mRenderId);
 		indexBuffer->Bind();
