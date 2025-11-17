@@ -65,18 +65,19 @@ public:
 
 		testSquareVA.reset(RTH::VertexArray::Create());
 
-		float sqVertices[3 * 4] =
+		float sqVertices[5 * 4] =
 		{
-			-0.75f, -0.75f, 0.0f,
-			0.75f, -0.75f, 0.0f,
-			0.75f, 0.75f, 0.0f,
-			-0.75f, 0.75f, 0.0f
+			-0.75f, -0.75f, 0.0f, 0.0f, 0.0f,
+			 0.75f, -0.75f, 0.0f, 1.0f, 0.0f,
+			 0.75f,  0.75f, 0.0f, 1.0f, 1.0f,
+			-0.75f,  0.75f, 0.0f, 0.0f, 1.0f
 		};
 
 		RTH::Ref<RTH::VertexBuffer> testSquareVB;
 		testSquareVB.reset(RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices)));
 		testSquareVB->SetLayout({
 				{RTH::ShaderDataType::Float3, "pos"},
+				{RTH::ShaderDataType::Float2, "texCoord"}
 			});
 
 		testSquareVA->AddVertexBuffer(testSquareVB);
@@ -110,6 +111,31 @@ public:
 		)";
 		flatColorShader.reset(RTH::Shader::Create(flatColorvertexSrc, flatColorfragSrc));
 
+		std::string texturevertexSrc = R"(
+			#version 460 core
+			layout(location = 0) in vec3 pos;
+			layout(location = 1) in vec2 texCoord;
+
+			uniform mat4 u_ViewProj;
+			uniform mat4 u_Transform;
+			out vec2 vTexCoord;
+			void main ()
+			{
+				vTexCoord = texCoord;
+				gl_Position = u_ViewProj * u_Transform * vec4(pos, 1.0);
+			}
+		)";
+		std::string texturefragSrc = R"(
+			#version 460 core
+			layout(location  = 0) out vec4 color;
+			in vec2 vTexCoord;
+			uniform vec3 u_Color;
+			void main ()
+			{
+				color = vec4(vTexCoord, 0.0f, 1.0f);
+			}
+		)";
+		textureShader.reset(RTH::Shader::Create(texturevertexSrc, texturefragSrc));
 		//=============================== TEST SQUARE===============================
 	}
 
@@ -150,8 +176,9 @@ public:
 				RTH::Renderer::Submit(flatColorShader, testSquareVA, transform);
 			}
 		}
-
-		RTH::Renderer::Submit(mShader, mVertexArray);
+		RTH::Renderer::Submit(textureShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		//RTH::Renderer::Submit(mShader, mVertexArray);
+		RTH::Renderer::EndScene();
 
 	}
 
@@ -194,6 +221,8 @@ private:
 	// Test
 	RTH::Ref<RTH::Shader> flatColorShader;
 	RTH::Ref<RTH::VertexArray> testSquareVA;
+
+	RTH::Ref<RTH::Shader> textureShader;
 
 	RTH::OrthographicCamera mCamera;
 	glm::vec3 mCameraPos;
