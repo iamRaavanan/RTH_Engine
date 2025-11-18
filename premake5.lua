@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "RTH/Plugins/GLFW/include"
 IncludeDir["Glad"] = "RTH/Plugins/Glad/include"
 IncludeDir["Imgui"] = "RTH/Plugins/imgui"
 IncludeDir["glm"] = "RTH/Plugins/glm"
+IncludeDir["stb_image"] = "RTH/Plugins/stb_image"
 include "RTH/Plugins/GLFW"
 include "RTH/Plugins/Glad"
 include "RTH/Plugins/Imgui"
@@ -36,6 +37,8 @@ project "RTH"
 	{
 		"%{prj.name}/Source/**.h",
 		"%{prj.name}/Source/**.cpp",
+		"%{prj.name}/Plugins/stb_image/**.cpp",
+		"%{prj.name}/Plugins/stb_image/**.h",
 		"%{prj.name}/Plugins/glm/glm/**.hpp",
 		"%{prj.name}/Plugins/glm/glm/**.inl"
 	}
@@ -52,7 +55,8 @@ project "RTH"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.Imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 	links
 	{

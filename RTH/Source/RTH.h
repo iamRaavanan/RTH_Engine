@@ -20,4 +20,5 @@
 #include "RTH/Renderer/Renderer.h"
 #include "RTH/Renderer/RendererAPI.h"
 #include "RTH/Renderer/Shader.h"
+#include "RTH/Renderer/Texture.h"
 #include "RTH/Renderer/VertexArray.h"

@@ -129,14 +129,18 @@ public:
 			#version 460 core
 			layout(location  = 0) out vec4 color;
 			in vec2 vTexCoord;
-			uniform vec3 u_Color;
+			uniform sampler2D u_Tex;
 			void main ()
 			{
-				color = vec4(vTexCoord, 0.0f, 1.0f);
+				color = texture(u_Tex, vTexCoord);
 			}
 		)";
 		textureShader.reset(RTH::Shader::Create(texturevertexSrc, texturefragSrc));
 		//=============================== TEST SQUARE===============================
+
+		texture = RTH::Texture2D::Create("Assets/Textures/Checkerboard.png");
+		std::dynamic_pointer_cast<RTH::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<RTH::OpenGLShader>(textureShader)->UploadUniformInt("u_Tex", 0);
 	}
 
 	void OnUpdate(RTH::Timestep deltaTime) override
@@ -176,6 +180,7 @@ public:
 				RTH::Renderer::Submit(flatColorShader, testSquareVA, transform);
 			}
 		}
+		texture->Bind();
 		RTH::Renderer::Submit(textureShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		//RTH::Renderer::Submit(mShader, mVertexArray);
 		RTH::Renderer::EndScene();
@@ -223,6 +228,7 @@ private:
 	RTH::Ref<RTH::VertexArray> testSquareVA;
 
 	RTH::Ref<RTH::Shader> textureShader;
+	RTH::Ref<RTH::Texture2D> texture;
 
 	RTH::OrthographicCamera mCamera;
 	glm::vec3 mCameraPos;
