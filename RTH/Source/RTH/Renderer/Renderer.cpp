@@ -5,6 +5,11 @@
 namespace RTH
 {
 	Renderer::SceneData* Renderer::mSceneData = new Renderer::SceneData;
+
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		/*

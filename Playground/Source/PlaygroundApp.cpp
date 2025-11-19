@@ -139,6 +139,7 @@ public:
 		//=============================== TEST SQUARE===============================
 
 		texture = RTH::Texture2D::Create("Assets/Textures/Checkerboard.png");
+		iconTexture = RTH::Texture2D::Create("Assets/Textures/ChernoLogo.png");
 		std::dynamic_pointer_cast<RTH::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<RTH::OpenGLShader>(textureShader)->UploadUniformInt("u_Tex", 0);
 	}
@@ -181,6 +182,8 @@ public:
 			}
 		}
 		texture->Bind();
+		RTH::Renderer::Submit(textureShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		iconTexture->Bind();
 		RTH::Renderer::Submit(textureShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		//RTH::Renderer::Submit(mShader, mVertexArray);
 		RTH::Renderer::EndScene();
@@ -228,7 +231,7 @@ private:
 	RTH::Ref<RTH::VertexArray> testSquareVA;
 
 	RTH::Ref<RTH::Shader> textureShader;
-	RTH::Ref<RTH::Texture2D> texture;
+	RTH::Ref<RTH::Texture2D> texture, iconTexture;
 
 	RTH::OrthographicCamera mCamera;
 	glm::vec3 mCameraPos;
