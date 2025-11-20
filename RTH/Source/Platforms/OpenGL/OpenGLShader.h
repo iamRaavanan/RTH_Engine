@@ -1,12 +1,13 @@
 #pragma once
 #include "RTH/Renderer/Shader.h"
 #include<glm/glm.hpp>
-
+typedef unsigned int GLenum;
 namespace RTH
 {
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& filePath);
 		OpenGLShader(const std::string& vertexSrc, const std::string& fragSrc);
 		~OpenGLShader();
 
@@ -23,6 +24,10 @@ namespace RTH
 		void UploadUniformFloat3(const std::string& name, const glm::vec3& value);
 		void UploadUniformFloat4(const std::string& name, const glm::vec4& value); 
 
+	private:
+		std::string ReadFile(const std::string& filePath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(std::unordered_map<GLenum, std::string>& shaderSrc);
 	private:
 		uint32_t mRendererId;
 	};
