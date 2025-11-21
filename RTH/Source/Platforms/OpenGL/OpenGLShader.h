@@ -8,11 +8,12 @@ namespace RTH
 	{
 	public:
 		OpenGLShader(const std::string& filePath);
-		OpenGLShader(const std::string& vertexSrc, const std::string& fragSrc);
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragSrc);
 		~OpenGLShader();
 
 		void Bind() const override;
 		void UnBind() const override;
+		virtual const std::string& GetName() const override { return mName; }
 
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
@@ -30,5 +31,6 @@ namespace RTH
 		void Compile(std::unordered_map<GLenum, std::string>& shaderSrc);
 	private:
 		uint32_t mRendererId;
+		std::string mName;
 	};
 }

@@ -20,9 +20,16 @@ namespace RTH
 		std::string source = ReadFile(filePath);
 		auto shaderSrc = PreProcess(source);
 		Compile(shaderSrc);
+
+		// Assets/Shaders/Texture.glsl
+		auto lastSlash = filePath.find_last_of("/\\"); 
+		lastSlash = (lastSlash == std::string::npos) ? 0 : lastSlash + 1;
+		auto lastDot = filePath.rfind(".");
+		size_t count = (lastDot == std::string::npos) ? filePath.size() - lastSlash : lastDot - lastSlash;
+		mName = filePath.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragSrc) : mName(name)
 	{
 		std::unordered_map<GLenum, std::string> Src;
 		Src[GL_VERTEX_SHADER] = vertexSrc;
@@ -33,7 +40,7 @@ namespace RTH
 	std::string OpenGLShader::ReadFile(const std::string& filePath)
 	{
 		std::string result;
-		std::ifstream file(filePath, std::ios::in, std::ios::binary);
+		std::ifstream file(filePath, std::ios::in | std::ios::binary);
 		if (file)
 		{
 			file.seekg(0, std::ios::end);
@@ -73,7 +80,9 @@ namespace RTH
 	void OpenGLShader::Compile(std::unordered_map<GLenum, std::string>& shaderSrc)
 	{
 		GLint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(shaderSrc.size());
+		RTH_CORE_ASSERT(shaderSrc.size() <= 2, "Shader source length is more than 2 dude!");
+		std::array<GLenum, 2> glShaderIDs;
+		int glArraydIndex = 0;
 		for (auto& kv : shaderSrc)
 		{
 			GLenum type = kv.first;
@@ -104,7 +113,7 @@ namespace RTH
 				break;
 			}
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glArraydIndex++] = shader;
 		}
 		
 		glLinkProgram(program);

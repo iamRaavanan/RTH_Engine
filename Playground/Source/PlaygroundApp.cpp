@@ -60,7 +60,7 @@ public:
 				color = vCol;
 			}
 		)";
-		mShader.reset(RTH::Shader::Create(vertexSrc, fragSrc));
+		mShader = RTH::Shader::Create("Basic", vertexSrc, fragSrc);
 		//=============================== TEST SQUARE===============================
 
 		testSquareVA.reset(RTH::VertexArray::Create());
@@ -109,9 +109,9 @@ public:
 				color = vec4(u_Color, 1.0f);
 			}
 		)";
-		flatColorShader.reset(RTH::Shader::Create(flatColorvertexSrc, flatColorfragSrc));
+		flatColorShader = RTH::Shader::Create("FlatColor", flatColorvertexSrc, flatColorfragSrc);
 
-		textureShader.reset(RTH::Shader::Create("Assets/Shaders/Texture.glsl"));
+		auto textureShader = mShaderLibrary.Load("Assets/Shaders/Texture.glsl");
 		//=============================== TEST SQUARE===============================
 
 		texture = RTH::Texture2D::Create("Assets/Textures/Checkerboard.png");
@@ -158,6 +158,7 @@ public:
 			}
 		}
 		texture->Bind();
+		auto textureShader = mShaderLibrary.Get("Texture");
 		RTH::Renderer::Submit(textureShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		iconTexture->Bind();
 		RTH::Renderer::Submit(textureShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
@@ -199,14 +200,13 @@ public:
 		return false;*/
 	}
 private:
-
+	RTH::ShaderLibrary mShaderLibrary;
 	RTH::Ref<RTH::Shader> mShader;
 	RTH::Ref<RTH::VertexArray> mVertexArray;
 	// Test
 	RTH::Ref<RTH::Shader> flatColorShader;
 	RTH::Ref<RTH::VertexArray> testSquareVA;
 
-	RTH::Ref<RTH::Shader> textureShader;
 	RTH::Ref<RTH::Texture2D> texture, iconTexture;
 
 	RTH::OrthographicCamera mCamera;
