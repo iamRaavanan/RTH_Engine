@@ -15,6 +15,7 @@
 
 #include "RTH/Renderer/Buffer.h"
 #include "RTH/Renderer/Camera.h"
+#include "RTH/OrthographicCameraController.h"
 #include "RTH/Renderer/GraphicContext.h"
 #include "RTH/Renderer/RenderCommand.h"
 #include "RTH/Renderer/Renderer.h"

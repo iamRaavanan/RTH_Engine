@@ -53,8 +53,8 @@ namespace RTH {
 	public:
 		EventDispatcher(Event& event) : mEvent(event) {}
 
-		template<typename T>
-		bool Dispatch(EventFun<T> func)
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
 			if (mEvent.GetEventType() == T::GetStaticType())
 			{

@@ -8,7 +8,7 @@
 class TestLayer : public RTH::Layer
 {
 public:
-	TestLayer() : Layer("Test"), mCamera(-2.0f, 2.0f, -2.0f, 2.0f), mCameraPos(0.0f)
+	TestLayer() : Layer("Test"), mCameraController(1280.0f/720.0f, true)
 	{
 		mVertexArray.reset(RTH::VertexArray::Create());
 
@@ -123,25 +123,12 @@ public:
 	void OnUpdate(RTH::Timestep deltaTime) override
 	{
 		RTH_CORE_TRACE("DeltaTime: {0}s : {1}ms", deltaTime.GetSeconds(), deltaTime.GetMilliSeconds());
-		if (RTH::Input::IsKeyPressed(RTH_KEY_LEFT))
-			mCameraPos.x -= mCameraMoveSpeed * deltaTime;
-		else if (RTH::Input::IsKeyPressed(RTH_KEY_RIGHT))
-			mCameraPos.x += mCameraMoveSpeed * deltaTime;
-		if (RTH::Input::IsKeyPressed(RTH_KEY_DOWN))
-			mCameraPos.y -= mCameraMoveSpeed * deltaTime;
-		else if (RTH::Input::IsKeyPressed(RTH_KEY_UP))
-			mCameraPos.y += mCameraMoveSpeed * deltaTime;
-
-		if (RTH::Input::IsKeyPressed(RTH_KEY_A))
-			mCameraRotation += mCameraRotationSpeed * deltaTime;
-		if (RTH::Input::IsKeyPressed(RTH_KEY_D))
-			mCameraRotation -= mCameraRotationSpeed * deltaTime;
-
+		
 		RTH::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		RTH::RenderCommand::Clear();
-		mCamera.SetPosition(mCameraPos);
-		mCamera.SetRotation(mCameraRotation);
-		RTH::Renderer::BeginScene(mCamera);
+
+		RTH::Renderer::BeginScene(mCameraController.GetCamera());
+		mCameraController.OnUpdate(deltaTime);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -175,6 +162,7 @@ public:
 	}
 	void OnEvent(RTH::Event& evnt) override
 	{
+		mCameraController.OnEvent(evnt);
 		//RTH::EventDispatcher dispatcher(evnt);
 		//dispatcher.Dispatch<RTH::KeyPressedEvent>(RTH_BIND_EVENT_FN(TestLayer::OnKeyPressedEvent));
 	}
@@ -209,11 +197,7 @@ private:
 
 	RTH::Ref<RTH::Texture2D> texture, iconTexture;
 
-	RTH::OrthographicCamera mCamera;
-	glm::vec3 mCameraPos;
-	float mCameraMoveSpeed = 2.0f;
-	float mCameraRotation = 0.0f;
-	float mCameraRotationSpeed = 180.0f;
+	RTH::OrthographicCameraController mCameraController;
 	glm::vec3 mSquareColor = { 0.2f, 0.4f, 0.8f };
 };
 
