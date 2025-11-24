@@ -30,7 +30,7 @@ namespace RTH
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		//RTH_CORE_TRACE("{0}", e.ToString());
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		for (auto it = mLayerStack.end(); it != mLayerStack.begin();)
 		{
@@ -59,9 +59,11 @@ namespace RTH
 			Timestep timestep = time - mLastFrameTime;
 			mLastFrameTime = time;
 
-			for (Layer* layer : mLayerStack)
-				layer->OnUpdate(timestep);
-
+			if (!mIsMinimized)
+			{
+				for (Layer* layer : mLayerStack)
+					layer->OnUpdate(timestep);
+			}
 			mImGuiLayer->Begin();
 			for (Layer* layer : mLayerStack)
 				layer->OnImGuiRender();
@@ -74,5 +76,16 @@ namespace RTH
 	{
 		mRunning = false;
 		return true;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			mIsMinimized = true;
+			return false;
+		}
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+		mIsMinimized = false;
+		return false;
 	}
 }

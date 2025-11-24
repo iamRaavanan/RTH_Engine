@@ -25,10 +25,11 @@ namespace RTH
 	private:
 		static Application* sInstance;
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 		std::unique_ptr<Window> mWindow;
 		ImGuiLayer* mImGuiLayer;
 		bool mRunning;
-
+		bool mIsMinimized = false;
 		float mLastFrameTime;
 		LayerStack mLayerStack;
 	};
