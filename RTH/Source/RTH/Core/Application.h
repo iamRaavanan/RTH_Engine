@@ -1,8 +1,8 @@
 #pragma once
 #include "Core.h"
-#include "Event/Event.h"
-#include "Event/ApplicationEvent.h"
-#include "RTH/LayerStack.h"
+#include "RTH/Event/Event.h"
+#include "RTH/Event/ApplicationEvent.h"
+#include "RTH/Core/LayerStack.h"
 #include "Window.h"
 #include "RTH/ImGui/ImGuiLayer.h"
 

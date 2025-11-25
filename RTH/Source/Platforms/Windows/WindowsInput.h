@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RTH/Input.h"
+#include "RTH/Core/Input.h"
 
 namespace RTH
 {

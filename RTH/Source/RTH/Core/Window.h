@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Rthpch.h"
-#include "RTH/Core.h"
+#include "RTH/Core/Core.h"
 #include "RTH/Event/Event.h"
 
 namespace RTH {

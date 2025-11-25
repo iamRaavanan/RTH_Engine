@@ -1,21 +1,21 @@
 #pragma once
-#include "RTH/Application.h"
-#include "RTH/Layer.h"
+#include "RTH/Core/Application.h"
+#include "RTH/Core/Layer.h"
 
 #include "RTH/Core/Timestep.h"
 
-#include "RTH/Input.h"
-#include "RTH/KeyCodes.h"
-#include "RTH/MouseButtonCodes.h"
+#include "RTH/Core/Input.h"
+#include "RTH/Core/KeyCodes.h"
+#include "RTH/Core/MouseButtonCodes.h"
 
-#include "RTH/Log.h"
+#include "RTH/Core/Log.h"
 #include "RTH/ImGui/ImGuiLayer.h"
 
-#include "RTH/Entrypoint.h"
+#include "RTH/Core/Entrypoint.h"
 
 #include "RTH/Renderer/Buffer.h"
 #include "RTH/Renderer/Camera.h"
-#include "RTH/OrthographicCameraController.h"
+#include "RTH/Renderer/OrthographicCameraController.h"
 #include "RTH/Renderer/GraphicContext.h"
 #include "RTH/Renderer/RenderCommand.h"
 #include "RTH/Renderer/Renderer.h"

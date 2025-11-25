@@ -1,7 +1,7 @@
 #include "Rthpch.h"
 #include "OrthographicCameraController.h"
-#include "RTH/Input.h"
-#include "RTH/KeyCodes.h"
+#include "RTH/Core/Input.h"
+#include "RTH/Core/KeyCodes.h"
 
 namespace RTH
 {

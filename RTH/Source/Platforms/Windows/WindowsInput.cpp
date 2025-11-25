@@ -1,7 +1,7 @@
 #include "Rthpch.h"
 #include "WindowsInput.h"
 
-#include "RTH/Application.h"
+#include "RTH/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace RTH
