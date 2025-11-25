@@ -11,7 +11,7 @@
 #include "RTH/Core/Log.h"
 #include "RTH/ImGui/ImGuiLayer.h"
 
-#include "RTH/Core/Entrypoint.h"
+//#include "RTH/Core/Entrypoint.h"
 
 #include "RTH/Renderer/Buffer.h"
 #include "RTH/Renderer/Camera.h"

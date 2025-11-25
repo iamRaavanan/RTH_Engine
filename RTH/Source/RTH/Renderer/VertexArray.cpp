@@ -5,7 +5,7 @@
 
 namespace RTH
 {
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		// Decide which Graphics API will be using
 		switch (Renderer::GetAPI())
@@ -17,7 +17,7 @@ namespace RTH
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return new OpenGLVertexArray();
+				return std::make_shared<OpenGLVertexArray>();
 			}
 		}
 		RTH_CORE_ASSERT(false, "Unknown RenderAPI!");

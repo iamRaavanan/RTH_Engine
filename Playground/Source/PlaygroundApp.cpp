@@ -4,13 +4,14 @@
 #include "imgui.h"
 #include<glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Playground2D.h"
 
 class TestLayer : public RTH::Layer
 {
 public:
 	TestLayer() : Layer("Test"), mCameraController(1280.0f/720.0f, true)
 	{
-		mVertexArray.reset(RTH::VertexArray::Create());
+		mVertexArray = RTH::VertexArray::Create();
 
 		float vertices[3 * 7] =
 		{
@@ -63,7 +64,7 @@ public:
 		mShader = RTH::Shader::Create("Basic", vertexSrc, fragSrc);
 		//=============================== TEST SQUARE===============================
 
-		testSquareVA.reset(RTH::VertexArray::Create());
+		testSquareVA = RTH::VertexArray::Create();
 
 		float sqVertices[5 * 4] =
 		{
@@ -206,7 +207,8 @@ class PlaygroundApp : public RTH::Application
 public:
 	PlaygroundApp()
 	{
-		PushLayer(new TestLayer());
+		//PushLayer(new TestLayer());
+		PushLayer(new Playground2D());
 	}
 
 	~PlaygroundApp()
