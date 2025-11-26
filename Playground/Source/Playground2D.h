@@ -19,4 +19,5 @@ private:
 	RTH::Ref<RTH::Shader> flatColorShader;
 	RTH::Ref<RTH::VertexArray> testSquareVA;
 	glm::vec4 mSquareColor = { 0.2f, 0.4f, 0.8f, 1.0f };
+	glm::vec2 mPos = { 0.0f, 0.0f };
 };

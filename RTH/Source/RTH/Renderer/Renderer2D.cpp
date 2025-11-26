@@ -3,6 +3,7 @@
 #include "VertexArray.h"
 #include "Shader.h"
 #include "RenderCommand.h"
+#include<glm/gtc/matrix_transform.hpp>
 
 namespace RTH
 {
@@ -51,7 +52,6 @@ namespace RTH
 	{
 		sRendererData->shader->Bind();
 		sRendererData->shader->SetMat4("u_ViewProj", camera.GetViewProjectionMat());
-		sRendererData->shader->SetMat4("u_Transform", glm::mat4(1.0f));
 	}
 	void Renderer2D::EndScene()
 	{
@@ -67,6 +67,9 @@ namespace RTH
 	{
 		sRendererData->shader->Bind();
 		sRendererData->shader->SetFloat4("u_Color", color);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });
+		sRendererData->shader->SetMat4("u_Transform", transform);
 		sRendererData->vertexArray->Bind();
 		RenderCommand::DrawIndexed(sRendererData->vertexArray);
 	}
