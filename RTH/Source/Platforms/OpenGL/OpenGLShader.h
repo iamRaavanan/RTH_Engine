@@ -1,6 +1,6 @@
 #pragma once
 #include "RTH/Renderer/Shader.h"
-#include<glm/glm.hpp>
+
 typedef unsigned int GLenum;
 namespace RTH
 {
@@ -14,6 +14,10 @@ namespace RTH
 		void Bind() const override;
 		void UnBind() const override;
 		virtual const std::string& GetName() const override { return mName; }
+
+		void SetMat4(const std::string& name, const glm::mat4& matrix) override;
+		void SetFloat3(const std::string& name, const glm::vec3& value) override;
+		void SetFloat4(const std::string& name, const glm::vec4& value) override;
 
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);

@@ -3,7 +3,6 @@
 #include "VertexArray.h"
 #include "Shader.h"
 #include "RenderCommand.h"
-#include "Platforms/OpenGL/OpenGLShader.h"
 
 namespace RTH
 {
@@ -50,9 +49,9 @@ namespace RTH
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		std::dynamic_pointer_cast<RTH::OpenGLShader>(sRendererData->shader)->Bind();
-		std::dynamic_pointer_cast<RTH::OpenGLShader>(sRendererData->shader)->UploadUniformMat4("u_ViewProj", camera.GetViewProjectionMat());
-		std::dynamic_pointer_cast<RTH::OpenGLShader>(sRendererData->shader)->UploadUniformMat4("u_Transform", glm::mat4(1.0f));
+		sRendererData->shader->Bind();
+		sRendererData->shader->SetMat4("u_ViewProj", camera.GetViewProjectionMat());
+		sRendererData->shader->SetMat4("u_Transform", glm::mat4(1.0f));
 	}
 	void Renderer2D::EndScene()
 	{
@@ -66,8 +65,8 @@ namespace RTH
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
-		std::dynamic_pointer_cast<RTH::OpenGLShader>(sRendererData->shader)->Bind();
-		std::dynamic_pointer_cast<RTH::OpenGLShader>(sRendererData->shader)->UploadUniformFloat4("u_Color", color);
+		sRendererData->shader->Bind();
+		sRendererData->shader->SetFloat4("u_Color", color);
 		sRendererData->vertexArray->Bind();
 		RenderCommand::DrawIndexed(sRendererData->vertexArray);
 	}
