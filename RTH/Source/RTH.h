@@ -19,6 +19,7 @@
 #include "RTH/Renderer/GraphicContext.h"
 #include "RTH/Renderer/RenderCommand.h"
 #include "RTH/Renderer/Renderer.h"
+#include "RTH/Renderer/Renderer2D.h"
 #include "RTH/Renderer/RendererAPI.h"
 #include "RTH/Renderer/Shader.h"
 #include "RTH/Renderer/Texture.h"

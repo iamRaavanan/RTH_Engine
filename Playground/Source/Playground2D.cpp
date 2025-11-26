@@ -20,7 +20,7 @@ Playground2D::Playground2D()
 	};
 
 	RTH::Ref<RTH::VertexBuffer> testSquareVB;
-	testSquareVB.reset(RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices)));
+	testSquareVB = RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices));
 	testSquareVB->SetLayout({
 			{RTH::ShaderDataType::Float3, "pos"},
 		});
@@ -51,11 +51,11 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 	RTH::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	RTH::RenderCommand::Clear();
 
-	RTH::Renderer::BeginScene(mCameraController.GetCamera());
-	std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->Bind();
-	std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->UploadUniformFloat4("u_Color", mSquareColor);
-	RTH::Renderer::Submit(flatColorShader, testSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-	RTH::Renderer::EndScene();
+	RTH::Renderer2D::BeginScene(mCameraController.GetCamera());
+	/*std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->Bind();
+	std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->UploadUniformFloat4("u_Color", mSquareColor);*/
+	RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.9f, 0.3f, 0.3f, 1.0f });
+	RTH::Renderer2D::EndScene();
 }
 
 void Playground2D::OnImGuiRender()

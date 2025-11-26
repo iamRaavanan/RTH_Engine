@@ -5,7 +5,7 @@
 
 namespace RTH
 {
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		// Decide which Graphics API will be using
 		switch (Renderer::GetAPI())
@@ -17,7 +17,7 @@ namespace RTH
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return new OpenGLVertexBuffer(vertices, size);
+				return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 			}
 		}
 		RTH_CORE_ASSERT(false, "Unknown RenderAPI!");

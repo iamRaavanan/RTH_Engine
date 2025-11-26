@@ -21,7 +21,7 @@ public:
 		};
 
 		RTH::Ref<RTH::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(RTH::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = RTH::VertexBuffer::Create(vertices, sizeof(vertices));
 		RTH::BufferLayout layout = {
 				{ RTH::ShaderDataType::Float3, "pos"},
 				{ RTH::ShaderDataType::Float4, "color" }
@@ -75,7 +75,7 @@ public:
 		};
 
 		RTH::Ref<RTH::VertexBuffer> testSquareVB;
-		testSquareVB.reset(RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices)));
+		testSquareVB = RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices));
 		testSquareVB->SetLayout({
 				{RTH::ShaderDataType::Float3, "pos"},
 				{RTH::ShaderDataType::Float2, "texCoord"}
