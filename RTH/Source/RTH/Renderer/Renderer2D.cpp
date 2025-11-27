@@ -10,8 +10,8 @@ namespace RTH
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> vertexArray;
-		Ref<Shader> flatshader;
 		Ref<Shader> textureShader;
+		Ref<Texture2D> whiteTexture;
 	};
 	static Renderer2DStorage* sRendererData;
 
@@ -42,7 +42,10 @@ namespace RTH
 		testSquareIB.reset(IndexBuffer::Create(sqindices, sizeof(sqindices) / sizeof(uint32_t)));
 		sRendererData->vertexArray->SetIndexBuffer(testSquareIB);
 
-		sRendererData->flatshader = Shader::Create("Assets/Shaders/Flatcolor.glsl");
+		sRendererData->whiteTexture = Texture2D::Create(1, 1);
+		uint32_t whiteTextureData = 0xffffffff;
+		sRendererData->whiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
+
 		sRendererData->textureShader = Shader::Create("Assets/Shaders/Texture.glsl");
 		sRendererData->textureShader->Bind();
 		sRendererData->textureShader->SetInt("u_Tex", 0);
@@ -55,9 +58,6 @@ namespace RTH
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		sRendererData->flatshader->Bind();
-		sRendererData->flatshader->SetMat4("u_ViewProj", camera.GetViewProjectionMat());
-
 		sRendererData->textureShader->Bind();
 		sRendererData->textureShader->SetMat4("u_ViewProj", camera.GetViewProjectionMat());
 	}
@@ -73,11 +73,10 @@ namespace RTH
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
-		sRendererData->flatshader->Bind();
-		sRendererData->flatshader->SetFloat4("u_Color", color);
-
+		sRendererData->textureShader->SetFloat4("u_Color", color);
+		sRendererData->whiteTexture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });
-		sRendererData->flatshader->SetMat4("u_Transform", transform);
+		sRendererData->textureShader->SetMat4("u_Transform", transform);
 		sRendererData->vertexArray->Bind();
 		RenderCommand::DrawIndexed(sRendererData->vertexArray);
 	}
@@ -88,10 +87,10 @@ namespace RTH
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
-		sRendererData->textureShader->Bind();
+		sRendererData->textureShader->SetFloat4("u_Color", glm::vec4(0.5f));
+		texture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });
 		sRendererData->textureShader->SetMat4("u_Transform", transform);
-		texture->Bind();
 		sRendererData->vertexArray->Bind();
 		RenderCommand::DrawIndexed(sRendererData->vertexArray);
 	}

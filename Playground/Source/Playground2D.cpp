@@ -29,8 +29,6 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 	RTH::RenderCommand::Clear();
 
 	RTH::Renderer2D::BeginScene(mCameraController.GetCamera());
-	/*std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->Bind();
-	std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->UploadUniformFloat4("u_Color", mSquareColor);*/
 	RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, mSquareColor);
 	RTH::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.5f, 0.5f }, mSquareColor);
 	RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mTexture);

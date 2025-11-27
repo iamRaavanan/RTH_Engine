@@ -1,10 +1,22 @@
 #include "Rthpch.h"
 #include "OpenGLTexture.h"
 #include "stb_image.h"
-#include <glad/glad.h>
 
 namespace RTH
 {
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
+		:mWidth(width), mHeight(height)
+	{
+		mInternalFormat = GL_RGBA8;
+		mDataFormat = GL_RGBA;
+		glCreateTextures(GL_TEXTURE_2D, 1, &mRendererID);
+		glTextureStorage2D(mRendererID, 1, mInternalFormat, mWidth, mHeight);
+		glTextureParameteri(mRendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(mRendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTextureParameteri(mRendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(mRendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	}
+
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		:mPath(path)
 	{
@@ -25,6 +37,8 @@ namespace RTH
 			internalFormat = GL_RGB8;
 			dataFormat = GL_RGB;
 		}
+		mInternalFormat = internalFormat;
+		mDataFormat = dataFormat;
 		glCreateTextures(GL_TEXTURE_2D, 1, &mRendererID);
 		glTextureStorage2D(mRendererID, 1, internalFormat, mWidth, mHeight);
 		glTextureParameteri(mRendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -38,6 +52,13 @@ namespace RTH
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &mRendererID);
+	}
+
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
+	{
+		uint32_t bytesperPixel = (mDataFormat == GL_RGBA) ? 4 : 3;
+		RTH_CORE_ASSERT(size == mWidth * mHeight * bytesperPixel, "data must be entire texture");
+		glTextureSubImage2D(mRendererID, 0, 0, 0, mWidth, mHeight, mDataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
