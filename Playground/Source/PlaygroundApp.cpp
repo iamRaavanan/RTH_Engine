@@ -116,7 +116,7 @@ public:
 		//=============================== TEST SQUARE===============================
 
 		texture = RTH::Texture2D::Create("Assets/Textures/Checkerboard.png");
-		iconTexture = RTH::Texture2D::Create("Assets/Textures/ChernoLogo.png");
+		iconTexture = RTH::Texture2D::Create("Assets/Textures/RLogo.png");
 		std::dynamic_pointer_cast<RTH::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<RTH::OpenGLShader>(textureShader)->UploadUniformInt("u_Tex", 0);
 	}

@@ -8,31 +8,8 @@
 
 Playground2D::Playground2D()
 	:Layer("2DPlayground"), mCameraController(1280.0f / 720.0f)
-{
-	testSquareVA = RTH::VertexArray::Create();
-
-	float sqVertices[3 * 4] =
-	{
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f
-	};
-
-	RTH::Ref<RTH::VertexBuffer> testSquareVB;
-	testSquareVB = RTH::VertexBuffer::Create(sqVertices, sizeof(sqVertices));
-	testSquareVB->SetLayout({
-			{RTH::ShaderDataType::Float3, "pos"},
-		});
-
-	testSquareVA->AddVertexBuffer(testSquareVB);
-
-	uint32_t sqindices[6] = { 0, 1, 2, 2, 3, 0 };
-	RTH::Ref<RTH::IndexBuffer> testSquareIB;
-	testSquareIB.reset(RTH::IndexBuffer::Create(sqindices, sizeof(sqindices) / sizeof(uint32_t)));
-	testSquareVA->SetIndexBuffer(testSquareIB);
-
-	flatColorShader = RTH::Shader::Create("Assets/Shaders/Flatcolor.glsl");
+{	
+	mTexture = RTH::Texture2D::Create("Assets/Textures/Checkerboard.png");
 }
 
 void Playground2D::OnAttach()
@@ -56,6 +33,7 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 	std::dynamic_pointer_cast<RTH::OpenGLShader>(flatColorShader)->UploadUniformFloat4("u_Color", mSquareColor);*/
 	RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, mSquareColor);
 	RTH::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.5f, 0.5f }, mSquareColor);
+	RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mTexture);
 	RTH::Renderer2D::EndScene();
 }
 
