@@ -13,6 +13,7 @@ namespace RTH
 
 	Application::Application()
 	{
+		RTH_PROFILE_FUNCTION();
 		RTH_CORE_ASSERT(!sInstance, "Application already exist");
 		sInstance = this;
 		mWindow = std::unique_ptr<Window>(Window::Create());
@@ -55,19 +56,28 @@ namespace RTH
 	{
 		while (mRunning)
 		{
+			RTH_PROFILE_SCOPE("RunLoop");
 			float time = glfwGetTime();
 			Timestep timestep = time - mLastFrameTime;
 			mLastFrameTime = time;
 
 			if (!mIsMinimized)
 			{
-				for (Layer* layer : mLayerStack)
-					layer->OnUpdate(timestep);
+				{
+					RTH_PROFILE_SCOPE("LayerStack OnUpdate");
+					for (Layer* layer : mLayerStack)
+						layer->OnUpdate(timestep);
+				}
+				
+
+				{
+					RTH_PROFILE_SCOPE("LayerStack ImGUIRender");
+					mImGuiLayer->Begin();
+					for (Layer* layer : mLayerStack)
+						layer->OnImGuiRender();
+					mImGuiLayer->End();
+				}
 			}
-			mImGuiLayer->Begin();
-			for (Layer* layer : mLayerStack)
-				layer->OnImGuiRender();
-			mImGuiLayer->End();
 			mWindow->OnUpdate();
 		}
 	}

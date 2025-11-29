@@ -8,6 +8,7 @@ namespace RTH
 
 	void Renderer::Init()
 	{
+		RTH_PROFILE_FUNCTION();
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}
@@ -34,6 +35,7 @@ namespace RTH
 		/*
 		* Submit into the Render command queue.
 		*/
+		RTH_PROFILE_FUNCTION();
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProj", mSceneData->mViewProjMat);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);

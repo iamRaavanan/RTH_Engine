@@ -21,6 +21,7 @@ namespace RTH {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		RTH_PROFILE_FUNCTION();
 		Init(props);
 	}
 
@@ -31,22 +32,26 @@ namespace RTH {
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		RTH_PROFILE_FUNCTION();
 		mData.Title = props.Title;
 		mData.Width = props.Width;
 		mData.Height = props.Height;
 
 		RTH_CORE_INFO("Creating window {0} {1} {2}", props.Title, props.Width, props.Height);
-		
+
 		if (!bIsGLFWInitialized)
 		{
+			RTH_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
 			RTH_CORE_ASSERT(success, "Could not initialize GLFW!");
 			bIsGLFWInitialized = true;
 		}
-		mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
-		mContext = new OpenGLContext(mWindow);
-		mContext->Init();
-		
+		{
+			RTH_PROFILE_SCOPE("glfwCreateWindow");
+			mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
+			mContext = new OpenGLContext(mWindow);
+			mContext->Init();
+		}
 		glfwSetWindowUserPointer(mWindow, &mData);
 		SetVSync(true);
 

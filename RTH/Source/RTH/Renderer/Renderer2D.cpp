@@ -17,6 +17,7 @@ namespace RTH
 
 	void Renderer2D::Init()
 	{
+		RTH_PROFILE_FUNCTION();
 		sRendererData = new Renderer2DStorage();
 		sRendererData->vertexArray = VertexArray::Create();
 
@@ -58,6 +59,7 @@ namespace RTH
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		RTH_PROFILE_FUNCTION();
 		sRendererData->textureShader->Bind();
 		sRendererData->textureShader->SetMat4("u_ViewProj", camera.GetViewProjectionMat());
 	}
@@ -73,6 +75,7 @@ namespace RTH
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		RTH_PROFILE_FUNCTION();
 		sRendererData->textureShader->SetFloat4("u_Color", color);
 		sRendererData->whiteTexture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });
@@ -87,6 +90,7 @@ namespace RTH
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		RTH_PROFILE_FUNCTION();
 		sRendererData->textureShader->SetFloat4("u_Color", glm::vec4(0.5f));
 		texture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });

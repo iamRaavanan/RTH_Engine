@@ -14,6 +14,7 @@ namespace RTH
 	ImGuiLayer::ImGuiLayer()
 		:Layer("ImGuiLayer")
 	{
+		RTH_PROFILE_FUNCTION();
 	}
 
 	ImGuiLayer::~ImGuiLayer()
@@ -22,6 +23,7 @@ namespace RTH
 
 	void ImGuiLayer::OnAttach()
 	{
+		RTH_PROFILE_FUNCTION();
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO();
@@ -44,6 +46,7 @@ namespace RTH
 	}
 	void ImGuiLayer::OnDetach()
 	{
+		RTH_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -57,6 +60,7 @@ namespace RTH
 
 	void ImGuiLayer::Begin()
 	{
+		RTH_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();

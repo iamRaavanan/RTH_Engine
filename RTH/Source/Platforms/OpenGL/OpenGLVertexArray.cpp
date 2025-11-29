@@ -27,16 +27,19 @@ namespace RTH
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		RTH_PROFILE_FUNCTION();
 		glCreateVertexArrays(1, &mRenderId);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
+		RTH_PROFILE_FUNCTION();
 		glDeleteVertexArrays(1, &mRenderId);
 	}
 
 	void OpenGLVertexArray::Bind() const
 	{
+		RTH_PROFILE_FUNCTION();
 		glBindVertexArray(mRenderId);
 	}
 
@@ -47,6 +50,7 @@ namespace RTH
 
 	void OpenGLVertexArray::AddVertexBuffer(const RTH::Ref<VertexBuffer>& vertexBuffer)
 	{
+		RTH_PROFILE_FUNCTION();
 		RTH_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(mRenderId);
@@ -65,6 +69,7 @@ namespace RTH
 
 	void OpenGLVertexArray::SetIndexBuffer(const RTH::Ref<IndexBuffer>& indexBuffer)
 	{
+		RTH_PROFILE_FUNCTION();
 		glBindVertexArray(mRenderId);
 		indexBuffer->Bind();
 		mIndexBuffer = indexBuffer;

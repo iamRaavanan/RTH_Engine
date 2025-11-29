@@ -8,7 +8,7 @@ namespace RTH
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
 		: mAspectRatio(aspectRatio), mCamera(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel)
 	{
-
+		RTH_PROFILE_FUNCTION();
 	}
 	
 	void OrthographicCameraController::OnUpdate(Timestep deltaTime)

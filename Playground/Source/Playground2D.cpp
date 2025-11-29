@@ -25,10 +25,8 @@ void Playground2D::OnDetach()
 void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 {
 	RTH_PROFILE_FUNCTION();
-	{
-		RTH_PROFILE_SCOPE("OnCameraUpdate");
-		mCameraController.OnUpdate(deltaTime);
-	}
+	
+	mCameraController.OnUpdate(deltaTime);
 
 	{
 		RTH_PROFILE_SCOPE("Render Preparation");
