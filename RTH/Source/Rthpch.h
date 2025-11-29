@@ -12,6 +12,8 @@
 #include <unordered_set>
 
 #include "RTH/Core/Log.h"
+#include "RTH/Debug/Instrumentor.h"
+
 #ifdef  RTH_PLATFORM_WINDOWS
 #include "Windows.h"
 #endif //  RTH_PLATFORM_WINDOWS
