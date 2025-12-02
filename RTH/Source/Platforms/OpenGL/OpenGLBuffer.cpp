@@ -5,6 +5,14 @@
 namespace RTH
 {
 	//================================ Vertex Buffer====================================
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	{
+		RTH_PROFILE_FUNCTION();
+		glCreateBuffers(1, &mRenderId);
+		Bind();
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		RTH_PROFILE_FUNCTION();
@@ -17,6 +25,13 @@ namespace RTH
 	{
 		RTH_PROFILE_FUNCTION();
 		glDeleteBuffers(1, &mRenderId);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	{
+		RTH_PROFILE_FUNCTION();
+		glBindBuffer(GL_ARRAY_BUFFER, mRenderId);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
 	void OpenGLVertexBuffer::Bind() const

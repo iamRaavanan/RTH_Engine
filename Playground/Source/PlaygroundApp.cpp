@@ -31,8 +31,7 @@ public:
 		mVertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		RTH::Ref<RTH::IndexBuffer> indexBuffer;
-		indexBuffer.reset(RTH::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		RTH::Ref<RTH::IndexBuffer> indexBuffer = RTH::IndexBuffer::Create(indices, sizeof(indices));
 		mVertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = R"(
@@ -84,8 +83,7 @@ public:
 		testSquareVA->AddVertexBuffer(testSquareVB);
 
 		uint32_t sqindices[6] = { 0, 1, 2, 2, 3, 0 };
-		RTH::Ref<RTH::IndexBuffer> testSquareIB;
-		testSquareIB.reset(RTH::IndexBuffer::Create(sqindices, sizeof(sqindices) / sizeof(uint32_t)));
+		RTH::Ref<RTH::IndexBuffer> testSquareIB = RTH::IndexBuffer::Create(sqindices, sizeof(sqindices));
 		testSquareVA->SetIndexBuffer(testSquareIB);
 
 		std::string flatColorvertexSrc = R"(

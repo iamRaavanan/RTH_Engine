@@ -1,1 +1,1 @@
-{"otherData": {},"traceEvents":[{"cat":"function","dur":46,"name":"__cdecl RTH::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":1802156259,"ts":267482957690}]}
+{"otherData": {},"traceEvents":[{"cat":"function","dur":51,"name":"__cdecl RTH::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":884862484,"ts":359165858411}]}

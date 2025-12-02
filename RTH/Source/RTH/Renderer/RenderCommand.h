@@ -26,9 +26,9 @@ namespace RTH
 			sRendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count = 0)
 		{
-			return sRendererAPI->DrawIndexed(vertexArray);
+			return sRendererAPI->DrawIndexed(vertexArray, count);
 		}
 	private:
 		static RendererAPI* sRendererAPI;
