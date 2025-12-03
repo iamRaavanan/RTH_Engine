@@ -40,6 +40,7 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 		//RTH::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, 45.0f, mSquareColor);
 		RTH::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.5f, 0.5f }, mSquareColor);
 		RTH::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 0.5f, 0.5f }, {0.5f, 0.8f, 0.2f, 1.0f});
+		RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mTexture/*, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f)*/, 10.0f);
 		//RTH::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, 0.0f, mTexture, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f), 10.0f);
 		RTH::Renderer2D::EndScene();
 	}

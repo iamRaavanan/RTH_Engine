@@ -165,6 +165,11 @@ namespace RTH
 		UploadUniformInt(name, value);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		UploadUniformIntArray(name, values, count);
+	}
+
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
 	{
 		UploadUniformMat4(name, matrix);
@@ -201,6 +206,12 @@ namespace RTH
 	{
 		GLint location = glGetUniformLocation(mRendererId, name.c_str());
 		glUniform1i(location, value);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, const int* values, uint32_t count)
+	{
+		GLint location = glGetUniformLocation(mRendererId, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const std::string& name, const float value)

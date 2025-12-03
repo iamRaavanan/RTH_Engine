@@ -16,6 +16,7 @@ namespace RTH
 		virtual const std::string& GetName() const override { return mName; }
 
 		void SetInt(const std::string& name, int value) override;
+		void SetIntArray(const std::string& name, int* values, uint32_t count) override;
 
 		void SetMat4(const std::string& name, const glm::mat4& matrix) override;
 
@@ -27,6 +28,7 @@ namespace RTH
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
 		void UploadUniformInt(const std::string& name, const int value);
+		void UploadUniformIntArray(const std::string& name, const int* values, uint32_t count);
 
 		void UploadUniformFloat(const std::string& name, const float value);
 		void UploadUniformFloat2(const std::string& name, const glm::vec2& value);

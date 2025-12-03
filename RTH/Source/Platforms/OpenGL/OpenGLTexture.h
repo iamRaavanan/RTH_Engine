@@ -15,6 +15,10 @@ namespace RTH
 		virtual uint32_t GetHeight() const override { return mHeight; };
 
 		virtual void Bind(uint32_t slot = 0) const override;
+
+		virtual bool operator==(const Texture& other) const override {
+			return mRendererID == ((OpenGLTexture2D&)other).mRendererID;
+		}
 	private:
 		std::string mPath;
 		uint32_t mWidth, mHeight;
