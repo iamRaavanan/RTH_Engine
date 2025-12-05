@@ -7,6 +7,7 @@
 
 namespace RTH
 {
+#define STATISTICS 1
 	struct QuadVertex
 	{
 		glm::vec3 Position;
@@ -18,9 +19,9 @@ namespace RTH
 
 	struct Renderer2DInfo
 	{
-		const uint32_t MaxQuads = 10000;
-		const uint32_t MaxVertices = MaxQuads * 4;
-		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxQuads = 10000;
+		static const uint32_t MaxVertices = MaxQuads * 4;
+		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32;
 
 		Ref<VertexArray> vertexArray;
@@ -35,6 +36,8 @@ namespace RTH
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureSlotIndex = 1; // As, we usually start with 0. But on this case we set 0 for white texture
 		glm::vec4 vertices[4];
+
+		Renderer2D::Statistics stats;
 	};
 
 	static Renderer2DInfo sRendererInfo;
@@ -111,12 +114,16 @@ namespace RTH
 	}
 	void Renderer2D::EndScene()
 	{
+		RTH_PROFILE_FUNCTION();
 		uint32_t dataSize = (uint8_t*)sRendererInfo.QuadVertexBufferPtr - (uint8_t*)sRendererInfo.QuadVertexBufferBase;
 		sRendererInfo.vertexBuffer->SetData(sRendererInfo.QuadVertexBufferBase, dataSize);
 
 		for (uint32_t i = 0; i < sRendererInfo.TextureSlotIndex; i++)
 			sRendererInfo.TextureSlots[i]->Bind(i);
 		RenderCommand::DrawIndexed(sRendererInfo.vertexArray, sRendererInfo.IndexCount);
+#if STATISTICS
+		sRendererInfo.stats.DrawCalls++;
+#endif
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -127,6 +134,10 @@ namespace RTH
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		RTH_PROFILE_FUNCTION();
+
+		if (sRendererInfo.IndexCount >= Renderer2DInfo::MaxIndices)
+			FlushAndReset();
+
 		const float textureIndex = 0.0f;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
@@ -161,12 +172,10 @@ namespace RTH
 		sRendererInfo.QuadVertexBufferPtr++;
 
 		sRendererInfo.IndexCount += 6;
-		/*sRendererInfo.textureShader->SetFloat4("u_Color", color);
-		sRendererInfo.whiteTexture->Bind();
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });
-		sRendererInfo.textureShader->SetMat4("u_Transform", transform);
-		sRendererInfo.vertexArray->Bind();
-		RenderCommand::DrawIndexed(sRendererInfo.vertexArray);*/
+
+#if STATISTICS
+		sRendererInfo.stats.QuadCount++;
+#endif
 	}
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier)
 	{
@@ -176,6 +185,10 @@ namespace RTH
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier)
 	{
 		RTH_PROFILE_FUNCTION();
+
+		if (sRendererInfo.IndexCount >= Renderer2DInfo::MaxIndices)
+			FlushAndReset();
+
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float textureIndex = 0.0f;
 		for (uint32_t i = 0; i < sRendererInfo.TextureSlotIndex; i++)
@@ -223,14 +236,9 @@ namespace RTH
 		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
 		sRendererInfo.QuadVertexBufferPtr++;
 		sRendererInfo.IndexCount += 6;
-#if 0
-		sRendererInfo.textureShader->SetFloat4("u_Color", tintColor);
-		sRendererInfo.textureShader->SetFloat("u_TilingMultiplier", tilingMultiplier);
-		texture->Bind();
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0 });
-		sRendererInfo.textureShader->SetMat4("u_Transform", transform);
-		sRendererInfo.vertexArray->Bind();
-		RenderCommand::DrawIndexed(sRendererInfo.vertexArray);
+
+#if STATISTICS
+		sRendererInfo.stats.QuadCount++;
 #endif
 	}
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
@@ -241,6 +249,9 @@ namespace RTH
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
 		RTH_PROFILE_FUNCTION();
+
+		if (sRendererInfo.IndexCount >= Renderer2DInfo::MaxIndices)
+			FlushAndReset();
 
 		float textureIndex = 0.0f;
 		float tilingMultiplier = 0.0f;
@@ -276,6 +287,10 @@ namespace RTH
 		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
 		sRendererInfo.QuadVertexBufferPtr++;
 		sRendererInfo.IndexCount += 6;
+
+#if STATISTICS
+		sRendererInfo.stats.QuadCount++;
+#endif
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tintColor, float tilingMultiplier)
@@ -286,6 +301,9 @@ namespace RTH
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tintColor, float tilingMultiplier)
 	{
 		RTH_PROFILE_FUNCTION();
+		if (sRendererInfo.IndexCount >= Renderer2DInfo::MaxIndices)
+			FlushAndReset();
+
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float textureIndex = 0.0f;
 		for (uint32_t i = 0; i < sRendererInfo.TextureSlotIndex; i++)
@@ -335,5 +353,27 @@ namespace RTH
 		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
 		sRendererInfo.QuadVertexBufferPtr++;
 		sRendererInfo.IndexCount += 6;
+
+#if STATISTICS
+		sRendererInfo.stats.QuadCount++;
+#endif
 	}
+	void Renderer2D::ResetStats()
+	{
+		memset(&sRendererInfo.stats, 0, sizeof(Statistics));
+	}
+
+	Renderer2D::Statistics Renderer2D::GetStats()
+	{
+		return sRendererInfo.stats;
+	}
+
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
+		sRendererInfo.IndexCount = 0;
+		sRendererInfo.QuadVertexBufferPtr = sRendererInfo.QuadVertexBufferBase;
+		sRendererInfo.TextureSlotIndex = 1;
+	}
+
 }

@@ -122,7 +122,7 @@ namespace RTH
         bool m_Stopped;
     };
 }
-#define RTH_PROFILE 1
+#define RTH_PROFILE 0
 #if RTH_PROFILE
     #define RTH_PROFILE_BEGIN_SESSION(name, filepath) ::RTH::Instrumentor::Get().BeginSession(name, filepath)
     #define RTH_PROFILE_END_SESSION() ::RTH::Instrumentor::Get().EndSession()

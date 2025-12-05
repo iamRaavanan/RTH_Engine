@@ -3,7 +3,7 @@
 
 extern RTH::Application* RTH::CreateApplication();
 
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
 	RTH::Log::Init();
 
@@ -18,6 +18,8 @@ void main(int argc, char** argv)
 	RTH_PROFILE_BEGIN_SESSION("Shutdown", "RTH-Shutdown.json");
 	delete app;
 	RTH_PROFILE_END_SESSION();
+
+	return 0;
 }
 	
 #endif
