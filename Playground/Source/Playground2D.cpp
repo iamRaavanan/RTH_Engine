@@ -35,13 +35,16 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 	}
 
 	{
+		float ts = deltaTime;
+		static float rotation = 0.0f;
+		rotation += 0.1f;
 		RTH_PROFILE_SCOPE("Render Draw");
 		RTH::Renderer2D::BeginScene(mCameraController.GetCamera());
-		//RTH::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, 45.0f, mSquareColor);
+		RTH::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, -rotation, mSquareColor);
 		RTH::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.5f, 0.5f }, mSquareColor);
 		RTH::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 0.5f, 0.5f }, {0.5f, 0.8f, 0.2f, 1.0f});
 		RTH::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mTexture/*, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f)*/, 10.0f);
-		//RTH::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, 0.0f, mTexture, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f), 10.0f);
+		RTH::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, mTexture, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f), 10.0f);
 		RTH::Renderer2D::EndScene();
 	}
 }
