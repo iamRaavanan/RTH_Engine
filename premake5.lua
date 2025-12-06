@@ -26,7 +26,7 @@ project "RTH"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -107,7 +107,7 @@ project "Playground"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -148,12 +148,12 @@ project "Playground"
 
 	filter "configurations:Release"
 		defines "RTH_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
 		defines "RTH_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "on"
 
 	filter "action:vs*"

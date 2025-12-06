@@ -16,6 +16,9 @@ namespace RTH
 		RTH_PROFILE_FUNCTION();
 		RTH_CORE_ASSERT(!sInstance, "Application already exist");
 		sInstance = this;
+		mRunning = true;
+		mIsMinimized = false;
+		mLastFrameTime = 0.0f;
 		mWindow = std::unique_ptr<Window>(Window::Create());
 		mWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		Renderer::Init();
