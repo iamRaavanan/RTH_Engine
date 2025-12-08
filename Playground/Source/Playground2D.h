@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RTH.h"
+#include "ParticleSystem.h"
 
 class Playground2D : public RTH::Layer
 {
@@ -22,4 +23,6 @@ private:
 	glm::vec4 mSquareColor = { 0.2f, 0.4f, 0.8f, 1.0f };
 	glm::vec2 mPos = { 0.0f, 0.0f };
 
+	ParticleSystem mParticleSystem;
+	ParticleProps mParticle;
 };

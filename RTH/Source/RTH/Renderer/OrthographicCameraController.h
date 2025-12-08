@@ -6,6 +6,14 @@
 
 namespace RTH
 {
+	struct OrthographicCameraBounds
+	{
+		float Left, Right;
+		float Bottom, Top;
+
+		float GetWidth() { return Right - Left; }
+		float GetHeight() { return Top - Bottom; }
+	};
 	class OrthographicCameraController
 	{
 	public:
@@ -16,6 +24,8 @@ namespace RTH
 
 		OrthographicCamera& GetCamera() { return mCamera; }
 		const OrthographicCamera& GetCamera() const { return mCamera; }
+
+		const OrthographicCameraBounds& GetBounds() const { return mBounds; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);
@@ -23,6 +33,7 @@ namespace RTH
 		float mAspectRatio;
 		float mZoomLevel = 1.0f;
 		bool mRotation;
+		OrthographicCameraBounds mBounds;
 		OrthographicCamera mCamera;
 
 		glm::vec3 mCameraPos = {0.0f, 0.0f, 0.0f};

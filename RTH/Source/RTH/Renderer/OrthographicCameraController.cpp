@@ -6,7 +6,7 @@
 namespace RTH
 {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
-		: mAspectRatio(aspectRatio), mCamera(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel)
+		: mAspectRatio(aspectRatio), mBounds({ -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel }), mCamera(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top), mRotation(rotation)
 	{
 		RTH_PROFILE_FUNCTION();
 	}
@@ -45,14 +45,16 @@ namespace RTH
 	{
 		mZoomLevel -= e.GetYOffset() * 0.25f;
 		mZoomLevel = std::max(mZoomLevel, 0.25f);
-		mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
+		mBounds = { -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel };
+		mCamera.SetProjection(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top);
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
 		mAspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
+		mBounds = { -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel };
+		mCamera.SetProjection(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top);
 		return false;
 	}
 }
