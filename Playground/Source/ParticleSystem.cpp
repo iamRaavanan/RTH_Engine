@@ -49,9 +49,9 @@ void ParticleSystem::OnUpdate(RTH::Timestep ts)
 	}
 }
 
-void ParticleSystem::OnRender(RTH::OrthographicCamera& camera)
+void ParticleSystem::OnRender(RTH::Camera2D& camera)
 {
-	RTH::Renderer2D::BeginScene(camera);
+	RTH::SpriteRenderer::BeginScene(camera);
 	for (auto& particle : m_ParticlePool)
 	{
 		if (!particle.Active)
@@ -63,9 +63,9 @@ void ParticleSystem::OnRender(RTH::OrthographicCamera& camera)
 
 		float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life);
 
-		RTH::Renderer2D::DrawRotatedQuad({ particle.Position.x, particle.Position.y, 0.2f }, { size, size }, particle.Rotation, color);
+		RTH::SpriteRenderer::DrawRotatedQuad({ particle.Position.x, particle.Position.y, 0.2f }, { size, size }, particle.Rotation, color);
 	}
-	RTH::Renderer2D::EndScene();
+	RTH::SpriteRenderer::EndScene();
 }
 
 void ParticleSystem::Emit(const ParticleProps& particleProps)

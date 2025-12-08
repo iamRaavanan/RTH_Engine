@@ -3,7 +3,7 @@
 #include "RTH.h"
 #include "ParticleSystem.h"
 
-class Playground2D : public RTH::Layer
+class Playground2D : public RTH::Module
 {
 public:
 	Playground2D();
@@ -15,7 +15,7 @@ public:
 	virtual void OnEvent(RTH::Event& e) override;
 
 private:
-	RTH::OrthographicCameraController mCameraController;
+	RTH::Camera2DController mCameraController;
 
 	RTH::Ref<RTH::Shader> flatColorShader;
 	RTH::Ref<RTH::Texture2D> mTexture;

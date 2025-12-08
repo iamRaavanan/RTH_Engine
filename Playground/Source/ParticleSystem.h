@@ -16,7 +16,7 @@ public:
 	ParticleSystem(uint32_t maxParticles = 100000);
 
 	void OnUpdate(RTH::Timestep ts);
-	void OnRender(RTH::OrthographicCamera& camera);
+	void OnRender(RTH::Camera2D& camera);
 
 	void Emit(const ParticleProps& particleProps);
 private:

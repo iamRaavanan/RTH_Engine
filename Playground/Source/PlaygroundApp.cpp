@@ -6,10 +6,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Playground2D.h"
 
-class TestLayer : public RTH::Layer
+class TestModule : public RTH::Module
 {
 public:
-	TestLayer() : Layer("Test"), mCameraController(1280.0f/720.0f, true)
+	TestModule() : Module("Test"), mCameraController(1280.0f/720.0f, true)
 	{
 		mVertexArray = RTH::VertexArray::Create();
 
@@ -163,7 +163,7 @@ public:
 	{
 		mCameraController.OnEvent(evnt);
 		//RTH::EventDispatcher dispatcher(evnt);
-		//dispatcher.Dispatch<RTH::KeyPressedEvent>(RTH_BIND_EVENT_FN(TestLayer::OnKeyPressedEvent));
+		//dispatcher.Dispatch<RTH::KeyPressedEvent>(RTH_BIND_EVENT_FN(TestModule::OnKeyPressedEvent));
 	}
 
 	bool OnKeyPressedEvent(RTH::KeyPressedEvent& event)
@@ -196,17 +196,17 @@ private:
 
 	RTH::Ref<RTH::Texture2D> texture, iconTexture;
 
-	RTH::OrthographicCameraController mCameraController;
+	RTH::Camera2DController mCameraController;
 	glm::vec3 mSquareColor = { 0.2f, 0.4f, 0.8f };
 };
 
-class PlaygroundApp : public RTH::Application
+class PlaygroundApp : public RTH::Engine
 {
 public:
 	PlaygroundApp()
 	{
-		//PushLayer(new TestLayer());
-		PushLayer(new Playground2D());
+		//PushModule(new TestModule());
+		PushModule(new Playground2D());
 	}
 
 	~PlaygroundApp()
@@ -215,7 +215,7 @@ public:
 	}
 };
 
-RTH::Application* RTH::CreateApplication()
+RTH::Engine* RTH::CreateApplication()
 {
 	return new PlaygroundApp();
 }

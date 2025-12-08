@@ -1,7 +1,7 @@
 #pragma once
 #ifdef RTH_PLATFORM_WINDOWS
 
-extern RTH::Application* RTH::CreateApplication();
+extern RTH::Engine* RTH::CreateApplication();
 
 int main(int argc, char** argv)
 {

@@ -1,7 +1,7 @@
 #include "Rthpch.h"
 #include "WindowsInput.h"
 
-#include "RTH/Core/Application.h"
+#include "RTH/Core/Engine.h"
 #include <GLFW/glfw3.h>
 
 namespace RTH
@@ -9,19 +9,19 @@ namespace RTH
 	Input* Input::sInstance = new WindowsInput();
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::GetApplication().GetWindow().GetNativeWindow());
+		auto window = static_cast<GLFWwindow*>(Engine::GetApplication().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 	bool WindowsInput::IsMousePressedImpl(int button)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::GetApplication().GetWindow().GetNativeWindow());
+		auto window = static_cast<GLFWwindow*>(Engine::GetApplication().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, button);
 		return state == GLFW_PRESS;
 	}
 	std::pair<float, float> WindowsInput::GetMousePositionImpl()
 	{
-		auto window = static_cast<GLFWwindow*>(Application::GetApplication().GetWindow().GetNativeWindow());
+		auto window = static_cast<GLFWwindow*>(Engine::GetApplication().GetWindow().GetNativeWindow());
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 		return { (float)xPos, (float)yPos };

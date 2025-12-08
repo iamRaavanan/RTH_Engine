@@ -1,6 +1,6 @@
 #pragma once
-#include "RTH/Core/Application.h"
-#include "RTH/Core/Layer.h"
+#include "RTH/Core/Engine.h"
+#include "RTH/Core/Module.h"
 
 #include "RTH/Core/Timestep.h"
 
@@ -9,17 +9,17 @@
 #include "RTH/Core/MouseButtonCodes.h"
 
 #include "RTH/Core/Log.h"
-#include "RTH/ImGui/ImGuiLayer.h"
+#include "RTH/ImGui/ImGuiModule.h"
 
 //#include "RTH/Core/Entrypoint.h"
 
 #include "RTH/Renderer/Buffer.h"
-#include "RTH/Renderer/Camera.h"
-#include "RTH/Renderer/OrthographicCameraController.h"
+#include "RTH/Renderer/Camera2D.h"
+#include "RTH/Renderer/Camera2DController.h"
 #include "RTH/Renderer/GraphicContext.h"
 #include "RTH/Renderer/RenderCommand.h"
 #include "RTH/Renderer/Renderer.h"
-#include "RTH/Renderer/Renderer2D.h"
+#include "RTH/Renderer/SpriteRenderer.h"
 #include "RTH/Renderer/RendererAPI.h"
 #include "RTH/Renderer/Shader.h"
 #include "RTH/Renderer/Texture.h"
