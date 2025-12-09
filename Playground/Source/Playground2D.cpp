@@ -10,6 +10,11 @@ Playground2D::Playground2D()
 	:Module("2DPlayground"), mCameraController(1280.0f / 720.0f)
 {	
 	mTexture = RTH::Texture2D::Create("Assets/Textures/Checkerboard.png");
+	mSpriteSheet = RTH::Texture2D::Create("Assets/Textures/RPG_spritesheet.png");
+
+	mStairSprite = RTH::Sprite::CreateFromCoords(mSpriteSheet, { 7, 6 }, { 128, 128 });
+	mBarrelSprite = RTH::Sprite::CreateFromCoords(mSpriteSheet, { 8, 2 }, { 128, 128 });
+	mTreeSprite = RTH::Sprite::CreateFromCoords(mSpriteSheet, { 2, 1 }, { 128, 128 }, {1, 2});
 	mParticle.ColorBegin = { 154 / 255.0f, 40 / 255.0f, 123 / 255.0f, 1.0f };
 	mParticle.ColorEnd = { 100 / 255.0f, 19 / 255.0f, 198 / 255.0f, 1.0f };
 	mParticle.SizeBegin = 0.5f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
@@ -41,7 +46,7 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 		RTH::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		RTH::RenderCommand::Clear();
 	}
-
+#if 0
 	{
 		float ts = deltaTime;
 		static float rotation = 0.0f;
@@ -66,6 +71,8 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 		}
 		RTH::SpriteRenderer::EndScene();
 	}
+#endif
+
 	if (RTH::Input::IsMouseButtonPressed(RTH_MOUSE_BUTTON_LEFT))
 	{
 		auto [x, y] = RTH::Input::GetMousePosition();
@@ -83,6 +90,12 @@ void Playground2D::OnUpdate(RTH::Timestep deltaTime)
 
 	mParticleSystem.OnUpdate(deltaTime);
 	mParticleSystem.OnRender(mCameraController.GetCamera());
+
+	RTH::SpriteRenderer::BeginScene(mCameraController.GetCamera());
+	RTH::SpriteRenderer::DrawSprite({ 0.0f, 0.0f, 0.3f }, { 1.0f, 1.0f }, mStairSprite);
+	RTH::SpriteRenderer::DrawSprite({ 1.0f, 0.0f, 0.3f }, { 1.0f, 1.0f }, mBarrelSprite);
+	RTH::SpriteRenderer::DrawSprite({ -1.0f, 0.0f, 0.3f }, { 1.0f, 1.0f }, mTreeSprite);
+	RTH::SpriteRenderer::EndScene();
 }
 
 void Playground2D::OnImGuiRender()

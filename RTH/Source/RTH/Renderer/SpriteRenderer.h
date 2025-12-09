@@ -1,6 +1,8 @@
 #pragma once
 #include "Camera2D.h"
 #include "Texture.h"
+#include "Sprite.h"
+
 namespace RTH
 {
 	class SpriteRenderer
@@ -18,11 +20,17 @@ namespace RTH
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
 
+		static void DrawSprite(const glm::vec2& position, const glm::vec2& size, const Ref<Sprite>& sprite/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
+		static void DrawSprite(const glm::vec3& position, const glm::vec2& size, const Ref<Sprite>& sprite/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
+
 		static void DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color);
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color);
 
 		static void DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tintColor, float tilingMultiplier = 1.0f);
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tintColor, float tilingMultiplier = 1.0f);
+
+		static void DrawRotatedSprite(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Sprite>& sprite, const glm::vec4& tintColor, float tilingMultiplier = 1.0f);
+		static void DrawRotatedSprite(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Sprite>& sprite, const glm::vec4& tintColor, float tilingMultiplier = 1.0f);
 
 		struct Statistics
 		{

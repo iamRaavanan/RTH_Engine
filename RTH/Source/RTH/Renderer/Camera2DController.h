@@ -32,9 +32,9 @@ namespace RTH
 	private:
 		float mAspectRatio;
 		float mZoomLevel = 1.0f;
-		bool mRotation;
 		Camera2DBounds mBounds;
 		Camera2D mCamera;
+		bool mRotation;
 
 		glm::vec3 mCameraPos = {0.0f, 0.0f, 0.0f};
 		float mCameraMoveSpeed = 2.0f;
