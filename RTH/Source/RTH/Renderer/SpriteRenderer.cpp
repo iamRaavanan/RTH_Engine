@@ -142,34 +142,18 @@ namespace RTH
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		const float tileFactor = 1.0f;
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[0];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tileFactor;
-		sRendererInfo.QuadVertexBufferPtr++;
-
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[1];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tileFactor;
-		sRendererInfo.QuadVertexBufferPtr++;
-
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[2];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tileFactor;
-		sRendererInfo.QuadVertexBufferPtr++;
-
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[3];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tileFactor;
-		sRendererInfo.QuadVertexBufferPtr++;
+		const float tilingMultiplier = 1.0f;
+		constexpr size_t quadVertexCount = 4;
+		constexpr glm::vec2 texCoord[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f} };
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[i];
+			sRendererInfo.QuadVertexBufferPtr->Color = color;
+			sRendererInfo.QuadVertexBufferPtr->TexCoord = texCoord[i];
+			sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
+			sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
+			sRendererInfo.QuadVertexBufferPtr++;
+		}
 
 		sRendererInfo.IndexCount += 6;
 
@@ -185,7 +169,7 @@ namespace RTH
 	void SpriteRenderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier)
 	{
 		RTH_PROFILE_FUNCTION();
-
+		constexpr size_t quadVertexCount = 4;
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		constexpr glm::vec2 texCoord[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f} };
 		if (sRendererInfo.IndexCount >= SpriteRendererInfo::MaxIndices)
@@ -209,33 +193,15 @@ namespace RTH
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[0];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = texCoord[0];
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
-		sRendererInfo.QuadVertexBufferPtr++;
-
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[1];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = texCoord[1];
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
-		sRendererInfo.QuadVertexBufferPtr++;
-
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[2];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = texCoord[2];
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
-		sRendererInfo.QuadVertexBufferPtr++;
-
-		sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[3];
-		sRendererInfo.QuadVertexBufferPtr->Color = color;
-		sRendererInfo.QuadVertexBufferPtr->TexCoord = texCoord[3];
-		sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
-		sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
-		sRendererInfo.QuadVertexBufferPtr++;
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			sRendererInfo.QuadVertexBufferPtr->Position = transform * sRendererInfo.vertices[i];
+			sRendererInfo.QuadVertexBufferPtr->Color = color;
+			sRendererInfo.QuadVertexBufferPtr->TexCoord = texCoord[i];
+			sRendererInfo.QuadVertexBufferPtr->TexIndex = textureIndex;
+			sRendererInfo.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
+			sRendererInfo.QuadVertexBufferPtr++;
+		}
 		sRendererInfo.IndexCount += 6;
 
 #if STATISTICS
@@ -273,7 +239,7 @@ namespace RTH
 			sRendererInfo.TextureSlots[sRendererInfo.TextureSlotIndex] = texture;
 			sRendererInfo.TextureSlotIndex++;
 		}
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * 
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		for (size_t i = 0; i < quadVertexCount; i++)

@@ -21,14 +21,16 @@ namespace RTH
 		
 		void OnUpdate(Timestep deltaTime);
 		void OnEvent(Event& e);
-
+		void SetZoomLevel(float value) { mZoomLevel = value; CalculateView(); }
 		Camera2D& GetCamera() { return mCamera; }
 		const Camera2D& GetCamera() const { return mCamera; }
 
 		const Camera2DBounds& GetBounds() const { return mBounds; }
+
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);
+		void CalculateView();
 	private:
 		float mAspectRatio;
 		float mZoomLevel = 1.0f;

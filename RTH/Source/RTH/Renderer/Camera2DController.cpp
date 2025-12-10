@@ -6,7 +6,9 @@
 namespace RTH
 {
 	Camera2DController::Camera2DController(float aspectRatio, bool rotation)
-		: mAspectRatio(aspectRatio), mBounds({ -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel }), mCamera(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top), mRotation(rotation)
+		: mAspectRatio(aspectRatio), mBounds({ -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel }), 
+		mCamera(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top), mRotation(rotation),
+		mCameraPos({0.0f, 0.0f, 0.0f}), mCameraRotation(0.0f)
 	{
 		RTH_PROFILE_FUNCTION();
 	}
@@ -41,20 +43,24 @@ namespace RTH
 		dispatcher.Dispatch<WindowResizeEvent>(RTH_BIND_EVENT_FN(Camera2DController::OnWindowResized));
 	}
 
+	void Camera2DController::CalculateView()
+	{
+		mBounds = { -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel };
+		mCamera.SetProjection(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top);
+	}
+
 	bool Camera2DController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
 		mZoomLevel -= e.GetYOffset() * 0.25f;
 		mZoomLevel = std::max(mZoomLevel, 0.25f);
-		mBounds = { -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel };
-		mCamera.SetProjection(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top);
+		CalculateView();
 		return false;
 	}
 
 	bool Camera2DController::OnWindowResized(WindowResizeEvent& e)
 	{
 		mAspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		mBounds = { -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel };
-		mCamera.SetProjection(mBounds.Left, mBounds.Right, mBounds.Bottom, mBounds.Top);
+		CalculateView();
 		return false;
 	}
 }
