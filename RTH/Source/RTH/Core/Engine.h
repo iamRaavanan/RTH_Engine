@@ -20,6 +20,8 @@ namespace RTH
 		void PushModule(Module* Module);
 		void PushOverlay(Module* Module);
 
+		void Close() { mRunning = false; }
+
 		inline static Engine& GetApplication() { return *sInstance; }
 		inline Window& GetWindow() { return *mWindow; }
 	private:
