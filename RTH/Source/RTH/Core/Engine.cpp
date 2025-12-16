@@ -11,7 +11,7 @@ namespace RTH
 #define BIND_EVENT_FN(callback) std::bind(&Engine::callback, this, std::placeholders::_1)
 	Engine* Engine::sInstance = nullptr;
 
-	Engine::Engine()
+	Engine::Engine(const std::string& name)
 	{
 		RTH_PROFILE_FUNCTION();
 		RTH_CORE_ASSERT(!sInstance, "Application already exist");
@@ -19,7 +19,7 @@ namespace RTH
 		mRunning = true;
 		mIsMinimized = false;
 		mLastFrameTime = 0.0f;
-		mWindow = std::unique_ptr<Window>(Window::Create());
+		mWindow = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		mWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		Renderer::Init();
 		mImGuiModule = new ImGuiModule();

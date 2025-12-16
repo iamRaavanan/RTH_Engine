@@ -203,7 +203,7 @@ private:
 class PlaygroundApp : public RTH::Engine
 {
 public:
-	PlaygroundApp()
+	PlaygroundApp() : Engine("RTH App")
 	{
 		//PushModule(new TestModule());
 		PushModule(new Playground2D());

@@ -17,9 +17,12 @@ IncludeDir["Glad"] = "RTH/Plugins/Glad/include"
 IncludeDir["Imgui"] = "RTH/Plugins/imgui"
 IncludeDir["glm"] = "RTH/Plugins/glm"
 IncludeDir["stb_image"] = "RTH/Plugins/stb_image"
-include "RTH/Plugins/GLFW"
-include "RTH/Plugins/Glad"
-include "RTH/Plugins/Imgui"
+
+group "Dependencies"
+	include "RTH/Plugins/GLFW"
+	include "RTH/Plugins/Glad"
+	include "RTH/Plugins/Imgui"
+group ""
 
 project "RTH"
 	location "RTH"
@@ -104,6 +107,63 @@ project "RTH"
 		
 project "Playground"
 	location "Playground"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "off"
+
+	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/Source/**.h",
+		"%{prj.name}/Source/**.cpp"
+	}
+
+	includedirs
+	{
+		"RTH/Source",
+		"RTH/Plugins/spdlog/include",
+		"RTH/Plugins/imgui",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"RTH"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"IMGUI_API=__declspec(dllimport)",
+			"RTH_PLATFORM_WINDOWS",
+			"RTH_ENABLE_ASSERTS"
+		}
+	
+	filter "configurations:Debug"
+		defines "RTH_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "RTH_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "RTH_DIST"
+		runtime "Release"
+		optimize "on"
+
+	filter "action:vs*"
+		buildoptions { "/utf-8" }
+		
+project "RTH-Editor"
+	location "RTH-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"

@@ -11,7 +11,7 @@ namespace RTH
 	class RTH_API Engine
 	{
 	public:
-		Engine();
+		Engine(const std::string& name = "");
 		virtual ~Engine();
 
 		void Run();
