@@ -142,11 +142,20 @@ namespace RTH
 			ImGui::Text("Vertices	: %d", stats.GetTotalVertexCount());
 			ImGui::Text("Indices	: %d", stats.GetTotalIndexCount());
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
-
-			uint32_t textureID = mFrameBuffer->GetColorAttachmentRendererID(); //mSpriteSheet->GetRendererId();
-			ImGui::Image((void*)textureID, ImVec2(1280, 720));
 			ImGui::End();
 
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
+			ImGui::Begin("Viewport");
+			ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+			if (mViewportSize !=  *((glm::vec2*)&viewportSize))
+			{
+				mViewportSize = { viewportSize.x, viewportSize.y };
+				mFrameBuffer->Resize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
+			}
+			uint32_t textureID = mFrameBuffer->GetColorAttachmentRendererID(); //mSpriteSheet->GetRendererId();
+			ImGui::Image((void*)textureID, ImVec2(mViewportSize.x, mViewportSize.y), ImVec2{0, 1}, ImVec2{ 1, 0 });
+			ImGui::End();
+			ImGui::PopStyleVar();
 			ImGui::End();
 		}
 		else

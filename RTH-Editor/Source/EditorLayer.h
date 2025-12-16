@@ -22,6 +22,8 @@ namespace RTH
 		Ref<Texture2D> mTexture;
 		Ref<FrameBuffer> mFrameBuffer;
 		Ref<VertexArray> testSquareVA;
+
+		glm::vec2 mViewportSize;
 		glm::vec4 mSquareColor = { 0.2f, 0.4f, 0.8f, 1.0f };
 	};
 }

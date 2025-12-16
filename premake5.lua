@@ -1,6 +1,6 @@
 workspace "RTH"
 	architecture "x64"
-	startproject "Playground"
+	startproject "RTH-Editor"
 	configurations
 	{
 		"Debug",

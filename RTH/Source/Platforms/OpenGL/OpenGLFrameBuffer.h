@@ -14,6 +14,8 @@ namespace RTH
 
 		virtual void Bind() const override;
 		virtual void UnBind() const override;
+		void Resize(uint32_t width, uint32_t height) override;
+
 		virtual uint32_t GetColorAttachmentRendererID() const override { return mColorAttachment; }
 
 		virtual const FrameBufferSpecification& GetSpecification() const override { return mSpecification; }
