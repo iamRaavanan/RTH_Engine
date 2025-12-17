@@ -48,6 +48,7 @@ namespace RTH
 	void OpenGLFrameBuffer::Bind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, mRendererID);
+		glViewport(0, 0, mSpecification.Width, mSpecification.Height);
 	}
 
 	void OpenGLFrameBuffer::UnBind() const

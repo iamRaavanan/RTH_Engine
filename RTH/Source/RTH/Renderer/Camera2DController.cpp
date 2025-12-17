@@ -43,6 +43,12 @@ namespace RTH
 		dispatcher.Dispatch<WindowResizeEvent>(RTH_BIND_EVENT_FN(Camera2DController::OnWindowResized));
 	}
 
+	void Camera2DController::OnResize(float width, float height)
+	{
+		mAspectRatio = width / height;
+		CalculateView();
+	}
+
 	void Camera2DController::CalculateView()
 	{
 		mBounds = { -mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel };

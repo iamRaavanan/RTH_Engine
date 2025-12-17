@@ -21,6 +21,7 @@ namespace RTH
 		
 		void OnUpdate(Timestep deltaTime);
 		void OnEvent(Event& e);
+		void OnResize(float width, float height);
 		void SetZoomLevel(float value) { mZoomLevel = value; CalculateView(); }
 		Camera2D& GetCamera() { return mCamera; }
 		const Camera2D& GetCamera() const { return mCamera; }

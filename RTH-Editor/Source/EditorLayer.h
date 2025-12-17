@@ -23,7 +23,7 @@ namespace RTH
 		Ref<FrameBuffer> mFrameBuffer;
 		Ref<VertexArray> testSquareVA;
 
-		glm::vec2 mViewportSize;
+		glm::vec2 mViewportSize= {0.0f, 0.0f };
 		glm::vec4 mSquareColor = { 0.2f, 0.4f, 0.8f, 1.0f };
 	};
 }
