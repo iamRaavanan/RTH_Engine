@@ -35,7 +35,9 @@ namespace RTH
 	{
 		RTH_PROFILE_FUNCTION();
 
-		mCameraController.OnUpdate(deltaTime);
+		if(mViewportFocused)
+			mCameraController.OnUpdate(deltaTime);
+
 		SpriteRenderer::ResetStats();
 		{
 			RTH_PROFILE_SCOPE("Render Preparation");
@@ -143,6 +145,8 @@ namespace RTH
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
 		ImGui::Begin("Viewport");
+		mViewportFocused = ImGui::IsWindowFocused();
+
 		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 		if (mViewportSize !=  *((glm::vec2*)&viewportSize))
 		{
