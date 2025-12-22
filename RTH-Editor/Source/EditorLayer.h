@@ -24,6 +24,7 @@ namespace RTH
 		Ref<VertexArray> testSquareVA;
 
 		bool mViewportFocused = false;
+		bool mViewportHovered = false;
 		glm::vec2 mViewportSize= {0.0f, 0.0f };
 		glm::vec4 mSquareColor = { 0.2f, 0.4f, 0.8f, 1.0f };
 	};

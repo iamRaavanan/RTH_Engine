@@ -21,6 +21,8 @@ namespace RTH
 		void PushOverlay(Module* Module);
 
 		void Close() { mRunning = false; }
+		
+		ImGuiModule* GetImGuiModule() { return mImGuiModule; }
 
 		inline static Engine& GetApplication() { return *sInstance; }
 		inline Window& GetWindow() { return *mWindow; }

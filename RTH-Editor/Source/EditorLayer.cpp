@@ -146,7 +146,8 @@ namespace RTH
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
 		ImGui::Begin("Viewport");
 		mViewportFocused = ImGui::IsWindowFocused();
-
+		mViewportHovered = ImGui::IsWindowHovered();
+		Engine::GetApplication().GetImGuiModule()->AllowImGuiEvent(!mViewportFocused || !mViewportHovered);
 		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 		if (mViewportSize !=  *((glm::vec2*)&viewportSize))
 		{

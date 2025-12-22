@@ -52,10 +52,14 @@ namespace RTH
 		ImGui::DestroyContext();
 	}
 
-	void ImGuiModule::OnImGuiRender()
+	void ImGuiModule::OnEvent(Event& e)
 	{
-		/*static bool show = true;
-		ImGui::ShowDemoWindow(&show);*/
+		if (mAllowImGuiEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}		
 	}
 
 	void ImGuiModule::Begin()
