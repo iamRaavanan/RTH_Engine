@@ -12,7 +12,7 @@ namespace RTH
 	class FrameBuffer
 	{
 	public:
-
+		virtual ~FrameBuffer() = default;
 		virtual void Bind() const = 0;
 		virtual void UnBind() const = 0;
 		virtual void Resize(uint32_t width, uint32_t height) = 0;
