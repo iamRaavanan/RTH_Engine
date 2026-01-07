@@ -17,6 +17,7 @@ IncludeDir["Glad"] = "RTH/Plugins/Glad/include"
 IncludeDir["Imgui"] = "RTH/Plugins/imgui"
 IncludeDir["glm"] = "RTH/Plugins/glm"
 IncludeDir["stb_image"] = "RTH/Plugins/stb_image"
+IncludeDir["entt"] = "RTH/Plugins/entt/include"
 
 group "Dependencies"
 	include "RTH/Plugins/GLFW"
@@ -59,7 +60,8 @@ project "RTH"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.Imgui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 	links
 	{
@@ -126,7 +128,8 @@ project "Playground"
 		"RTH/Source",
 		"RTH/Plugins/spdlog/include",
 		"RTH/Plugins/imgui",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -183,7 +186,8 @@ project "RTH-Editor"
 		"RTH/Source",
 		"RTH/Plugins/spdlog/include",
 		"RTH/Plugins/imgui",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
