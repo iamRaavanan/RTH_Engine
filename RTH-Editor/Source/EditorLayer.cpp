@@ -18,6 +18,13 @@ namespace RTH
 		Spec.Width = 1280;
 		Spec.Height = 720;
 		mFrameBuffer = FrameBuffer::Create(Spec);
+
+		ActiveScene = CreateRef<Scene>();
+
+		auto Square = ActiveScene->CreateEntity();
+		ActiveScene->Reg().emplace<TransformComponent>(Square);
+		ActiveScene->Reg().emplace<SpriteRendererComponent>(Square, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));	
+		squareEntity = Square;
 	}
 
 	void EditorLayer::OnAttach()
@@ -45,7 +52,12 @@ namespace RTH
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			RenderCommand::Clear();
 		}
-#if 1
+
+
+		SpriteRenderer::BeginScene(mCameraController.GetCamera());
+		ActiveScene->OnUpdate(deltaTime);
+		SpriteRenderer::EndScene();
+#if 0
 		{
 			float ts = deltaTime;
 			static float rotation = 0.0f;
@@ -140,7 +152,8 @@ namespace RTH
 		ImGui::Text("Quads		: %d", stats.QuadCount);
 		ImGui::Text("Vertices	: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices	: %d", stats.GetTotalIndexCount());
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
+		auto& SqColor = ActiveScene->Reg().get<SpriteRendererComponent>(squareEntity).Color;
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(SqColor));
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });

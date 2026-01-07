@@ -135,13 +135,21 @@ namespace RTH
 	{
 		RTH_PROFILE_FUNCTION();
 
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
+			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		DrawQuad(transform, color);
+	}
+
+	void SpriteRenderer::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
+	{
+		RTH_PROFILE_FUNCTION();
+
 		if (sRendererInfo.IndexCount >= SpriteRendererInfo::MaxIndices)
 			FlushAndReset();
 
 		const float textureIndex = 0.0f;
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
-			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 		const float tilingMultiplier = 1.0f;
 		constexpr size_t quadVertexCount = 4;
 		constexpr glm::vec2 texCoord[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f} };
@@ -161,12 +169,20 @@ namespace RTH
 		sRendererInfo.stats.QuadCount++;
 #endif
 	}
-	void SpriteRenderer::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier)
+	void SpriteRenderer::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingMultiplier)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture/*, tintColor*/, tilingMultiplier);
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture, tilingMultiplier);
 	}
 
 	void SpriteRenderer::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier)
+	{
+		RTH_PROFILE_FUNCTION();
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
+			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		DrawQuad(transform, texture, tilingMultiplier);
+	}
+
+	void SpriteRenderer::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingMultiplier)
 	{
 		RTH_PROFILE_FUNCTION();
 		constexpr size_t quadVertexCount = 4;
@@ -190,8 +206,6 @@ namespace RTH
 			sRendererInfo.TextureSlots[sRendererInfo.TextureSlotIndex] = texture;
 			sRendererInfo.TextureSlotIndex++;
 		}
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
-			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		for (size_t i = 0; i < quadVertexCount; i++)
 		{

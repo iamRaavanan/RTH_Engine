@@ -12,6 +12,8 @@
 #include "RTH/ImGui/ImGuiModule.h"
 
 //#include "RTH/Core/Entrypoint.h"
+#include "RTH/Scene/Scene.h"
+#include "RTH/Scene/Components.h"
 
 #include "RTH/Renderer/Buffer.h"
 #include "RTH/Renderer/Camera2D.h"

@@ -22,7 +22,9 @@ namespace RTH
 		Ref<Texture2D> mTexture;
 		Ref<FrameBuffer> mFrameBuffer;
 		Ref<VertexArray> testSquareVA;
+		Ref<Scene> ActiveScene;
 
+		entt::entity squareEntity;
 		bool mViewportFocused = false;
 		bool mViewportHovered = false;
 		glm::vec2 mViewportSize= {0.0f, 0.0f };

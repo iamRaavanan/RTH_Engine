@@ -16,9 +16,11 @@ namespace RTH
 
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
+		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color);
 
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
+		static void DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
 
 		static void DrawSprite(const glm::vec2& position, const glm::vec2& size, const Ref<Sprite>& sprite/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
 		static void DrawSprite(const glm::vec3& position, const glm::vec2& size, const Ref<Sprite>& sprite/*, const glm::vec4& tintColor*/, float tilingMultiplier = 1.0f);
