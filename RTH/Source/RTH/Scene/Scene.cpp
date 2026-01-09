@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include "Components.h"
 #include "RTH/Renderer/SpriteRenderer.h"
+#include "Entity.h"
 
 namespace RTH
 {
@@ -25,8 +26,13 @@ namespace RTH
 			SpriteRenderer::DrawQuad(transform, sprite.Color);
 		}
 	}
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return mRegistry.create();
+		Entity entity = { mRegistry.create(), this };
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
+		tag.tag = name.empty() ? "None" : name;
+
+		return entity;
 	}
 }

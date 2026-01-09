@@ -24,7 +24,7 @@ namespace RTH
 		Ref<VertexArray> testSquareVA;
 		Ref<Scene> ActiveScene;
 
-		entt::entity squareEntity;
+		Entity squareEntity;
 		bool mViewportFocused = false;
 		bool mViewportHovered = false;
 		glm::vec2 mViewportSize= {0.0f, 0.0f };

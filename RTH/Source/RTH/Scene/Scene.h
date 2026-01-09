@@ -4,13 +4,14 @@
 #include <RTH/Core/Timestep.h>
 namespace RTH
 {
+	class Entity;
 	class Scene
 	{
 	public:
 		Scene();
 		~Scene();
 		void OnUpdate(Timestep ts);
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name = std::string());
 		entt::registry& Reg() { return mRegistry; }
 	private:
 		entt::registry mRegistry;

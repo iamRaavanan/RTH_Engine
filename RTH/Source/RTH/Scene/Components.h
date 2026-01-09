@@ -3,6 +3,13 @@
 #include <glm/glm.hpp>
 namespace RTH
 {
+	struct TagComponent
+	{
+		std::string tag;
+		TagComponent() = default;
+		TagComponent(const TagComponent&) = default;
+		TagComponent(const std::string tagName) : tag(tagName) {}
+	};
 
 	struct TransformComponent
 	{

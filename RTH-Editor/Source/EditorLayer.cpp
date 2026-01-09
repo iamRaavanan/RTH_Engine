@@ -21,9 +21,8 @@ namespace RTH
 
 		ActiveScene = CreateRef<Scene>();
 
-		auto Square = ActiveScene->CreateEntity();
-		ActiveScene->Reg().emplace<TransformComponent>(Square);
-		ActiveScene->Reg().emplace<SpriteRendererComponent>(Square, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));	
+		auto Square = ActiveScene->CreateEntity("Square");
+		Square.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		squareEntity = Square;
 	}
 
@@ -152,8 +151,15 @@ namespace RTH
 		ImGui::Text("Quads		: %d", stats.QuadCount);
 		ImGui::Text("Vertices	: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices	: %d", stats.GetTotalIndexCount());
-		auto& SqColor = ActiveScene->Reg().get<SpriteRendererComponent>(squareEntity).Color;
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(SqColor));
+		if (squareEntity)
+		{
+			ImGui::Separator();
+			ImGui::Text("%s", squareEntity.GetComponent<TagComponent>().tag);
+			auto& SqColor = squareEntity.GetComponent<SpriteRendererComponent>().Color;
+			ImGui::ColorEdit4("Square Color", glm::value_ptr(SqColor));
+			ImGui::Separator();
+		}
+		
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
