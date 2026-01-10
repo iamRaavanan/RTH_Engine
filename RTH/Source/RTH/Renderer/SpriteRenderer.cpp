@@ -103,6 +103,17 @@ namespace RTH
 		RTH_PROFILE_FUNCTION();
 	}
 
+	void SpriteRenderer::BeginScene(const Camera& camera, const glm::mat4& transform)
+	{
+		RTH_PROFILE_FUNCTION();
+		glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
+		sRendererInfo.textureShader->Bind();
+		sRendererInfo.textureShader->SetMat4("u_ViewProj", viewProj);
+		sRendererInfo.IndexCount = 0;
+		sRendererInfo.QuadVertexBufferPtr = sRendererInfo.QuadVertexBufferBase;
+		sRendererInfo.TextureSlotIndex = 1;
+	}
+
 	void SpriteRenderer::BeginScene(const Camera2D& camera)
 	{
 		RTH_PROFILE_FUNCTION();

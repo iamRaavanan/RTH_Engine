@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "RTH/Renderer/Camera.h"
 namespace RTH
 {
 	struct TagComponent
@@ -28,5 +29,15 @@ namespace RTH
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color) : Color(color) {}
+	};
+
+	struct CameraComponent
+	{
+		RTH::Camera Camera;
+		bool primary = true;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& proj) : Camera(proj) {}
 	};
 }

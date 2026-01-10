@@ -25,6 +25,10 @@ namespace RTH
 		Ref<Scene> ActiveScene;
 
 		Entity squareEntity;
+		Entity cameraEntity;
+		Entity secondaryCameraEntity;
+		bool mIsMainCamera = true;
+
 		bool mViewportFocused = false;
 		bool mViewportHovered = false;
 		glm::vec2 mViewportSize= {0.0f, 0.0f };

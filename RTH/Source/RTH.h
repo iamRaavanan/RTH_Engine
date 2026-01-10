@@ -17,6 +17,7 @@
 #include "RTH/Scene/Components.h"
 
 #include "RTH/Renderer/Buffer.h"
+#include "RTH/Renderer/Camera.h"
 #include "RTH/Renderer/Camera2D.h"
 #include "RTH/Renderer/Camera2DController.h"
 #include "RTH/Renderer/GraphicContext.h"

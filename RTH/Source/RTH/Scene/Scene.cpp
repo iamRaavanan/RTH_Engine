@@ -18,12 +18,28 @@ namespace RTH
 
 	void Scene::OnUpdate(Timestep ts)
 	{
-
-		auto group = mRegistry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-		for (auto entity : group)
+		Camera* mainCamera = nullptr;
+		glm::mat4* Camtransform = nullptr;
+		auto camGroup = mRegistry.view<TransformComponent, CameraComponent>();
+		for (auto entity : camGroup)
 		{
-			auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
-			SpriteRenderer::DrawQuad(transform, sprite.Color);
+			auto& [transform, camera] = camGroup.get<TransformComponent, CameraComponent>(entity);
+			if (camera.primary)
+			{
+				mainCamera = &camera.Camera;
+				Camtransform = &transform.Transform;
+			}
+		}
+		if (mainCamera)
+		{
+			SpriteRenderer::BeginScene(mainCamera->GetProjection(), *Camtransform);
+			auto group = mRegistry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+			for (auto entity : group)
+			{
+				auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+				SpriteRenderer::DrawQuad(transform, sprite.Color);
+			}
+			SpriteRenderer::EndScene();
 		}
 	}
 	Entity Scene::CreateEntity(const std::string& name)

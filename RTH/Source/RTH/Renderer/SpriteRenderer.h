@@ -2,6 +2,7 @@
 #include "Camera2D.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Camera.h"
 
 namespace RTH
 {
@@ -11,6 +12,7 @@ namespace RTH
 		static void Init();
 		static void Shutdown();
 
+		static void BeginScene(const Camera& camera, const glm::mat4& transform);
 		static void BeginScene(const Camera2D& camera);
 		static void EndScene();
 

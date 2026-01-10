@@ -24,6 +24,11 @@ namespace RTH
 		auto Square = ActiveScene->CreateEntity("Square");
 		Square.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		squareEntity = Square;
+		cameraEntity = ActiveScene->CreateEntity("Camera");
+		cameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+
+		secondaryCameraEntity = ActiveScene->CreateEntity("SecondaryCamera");
+		secondaryCameraEntity.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
 	}
 
 	void EditorLayer::OnAttach()
@@ -53,9 +58,9 @@ namespace RTH
 		}
 
 
-		SpriteRenderer::BeginScene(mCameraController.GetCamera());
+		//SpriteRenderer::BeginScene(mCameraController.GetCamera());
 		ActiveScene->OnUpdate(deltaTime);
-		SpriteRenderer::EndScene();
+		//SpriteRenderer::EndScene();
 #if 0
 		{
 			float ts = deltaTime;
@@ -160,6 +165,11 @@ namespace RTH
 			ImGui::Separator();
 		}
 		
+		if (ImGui::Checkbox("Swap Camera", &mIsMainCamera))
+		{
+			cameraEntity.GetComponent<CameraComponent>().primary = mIsMainCamera;
+			secondaryCameraEntity.GetComponent<CameraComponent>().primary = !mIsMainCamera;
+		}
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
