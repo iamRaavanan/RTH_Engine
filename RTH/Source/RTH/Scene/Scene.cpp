@@ -20,10 +20,10 @@ namespace RTH
 	{
 		Camera* mainCamera = nullptr;
 		glm::mat4* Camtransform = nullptr;
-		auto camGroup = mRegistry.view<TransformComponent, CameraComponent>();
-		for (auto entity : camGroup)
+		auto camView = mRegistry.view<TransformComponent, CameraComponent>();
+		for (auto entity : camView)
 		{
-			auto& [transform, camera] = camGroup.get<TransformComponent, CameraComponent>(entity);
+			auto& [transform, camera] = camView.get<TransformComponent, CameraComponent>(entity);
 			if (camera.primary)
 			{
 				mainCamera = &camera.Camera;
@@ -42,6 +42,20 @@ namespace RTH
 			SpriteRenderer::EndScene();
 		}
 	}
+
+	void Scene::OnViewportResize(uint32_t width, uint32_t height)
+	{
+		auto view = mRegistry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			auto& cameraComp = view.get<CameraComponent>(entity);
+			if (cameraComp.primary)
+			{
+
+			}
+		}
+	}
+
 	Entity Scene::CreateEntity(const std::string& name)
 	{
 		Entity entity = { mRegistry.create(), this };

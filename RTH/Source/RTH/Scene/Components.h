@@ -35,6 +35,7 @@ namespace RTH
 	{
 		RTH::Camera Camera;
 		bool primary = true;
+		bool isFixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
