@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "RTH/Renderer/Camera.h"
+#include "SceneCamera.h"
 namespace RTH
 {
 	struct TagComponent
@@ -33,12 +33,11 @@ namespace RTH
 
 	struct CameraComponent
 	{
-		RTH::Camera Camera;
+		SceneCamera Camera;
 		bool primary = true;
 		bool isFixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4& proj) : Camera(proj) {}
 	};
 }

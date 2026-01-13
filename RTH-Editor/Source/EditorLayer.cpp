@@ -25,10 +25,10 @@ namespace RTH
 		Square.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		squareEntity = Square;
 		cameraEntity = ActiveScene->CreateEntity("Camera");
-		cameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		cameraEntity.AddComponent<CameraComponent>();
 
 		secondaryCameraEntity = ActiveScene->CreateEntity("SecondaryCamera");
-		secondaryCameraEntity.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		secondaryCameraEntity.AddComponent<CameraComponent>();
 	}
 
 	void EditorLayer::OnAttach()
@@ -46,6 +46,14 @@ namespace RTH
 	{
 		RTH_PROFILE_FUNCTION();
 
+		ActiveScene->OnViewportResize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
+		if (FrameBufferSpecification spec = mFrameBuffer->GetSpecification();
+			mViewportSize.x > 0.0f && mViewportSize.y > 0.0f &&
+			(spec.Width != mViewportSize.x || spec.Height != mViewportSize.y))
+		{
+			mFrameBuffer->Resize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
+			mCameraController.OnResize(mViewportSize.x, mViewportSize.y);
+		}
 		if(mViewportFocused)
 			mCameraController.OnUpdate(deltaTime);
 

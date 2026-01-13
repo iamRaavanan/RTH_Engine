@@ -18,7 +18,7 @@ namespace RTH
 
 	void Scene::OnUpdate(Timestep ts)
 	{
-		Camera* mainCamera = nullptr;
+		SceneCamera* mainCamera = nullptr;
 		glm::mat4* Camtransform = nullptr;
 		auto camView = mRegistry.view<TransformComponent, CameraComponent>();
 		for (auto entity : camView)
@@ -45,13 +45,15 @@ namespace RTH
 
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
+		mViewportWidth = width;
+		mViewportHeight = height;
 		auto view = mRegistry.view<CameraComponent>();
 		for (auto entity : view)
 		{
 			auto& cameraComp = view.get<CameraComponent>(entity);
-			if (cameraComp.primary)
+			if (!cameraComp.isFixedAspectRatio)
 			{
-
+				cameraComp.Camera.SetViewportSize(width, height);
 			}
 		}
 	}
