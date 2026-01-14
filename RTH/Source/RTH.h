@@ -14,6 +14,7 @@
 //#include "RTH/Core/Entrypoint.h"
 #include "RTH/Scene/Scene.h"
 #include "RTH/Scene/Entity.h"
+#include "RTH/Scene/ScriptableEntity.h"
 #include "RTH/Scene/Components.h"
 
 #include "RTH/Renderer/Buffer.h"

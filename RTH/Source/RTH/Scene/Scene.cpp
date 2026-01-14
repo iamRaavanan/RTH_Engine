@@ -18,6 +18,18 @@ namespace RTH
 
 	void Scene::OnUpdate(Timestep ts)
 	{
+		{
+			mRegistry.view<NativeScriptComponent>().each([=](entt::entity entity, NativeScriptComponent& nsc)
+			{
+				if (!nsc.Instance)
+				{
+					nsc.InstantiateFunction();
+					nsc.Instance->mEntity = Entity(entity, this);
+					nsc.OnCreateFunction(nsc.Instance);
+				}
+				nsc.OnUpdateFunction(nsc.Instance, ts);
+			});
+		}
 		SceneCamera* mainCamera = nullptr;
 		glm::mat4* Camtransform = nullptr;
 		auto camView = mRegistry.view<TransformComponent, CameraComponent>();

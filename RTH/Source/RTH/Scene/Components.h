@@ -1,7 +1,9 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include<functional>
 #include "SceneCamera.h"
+#include "ScriptableEntity.h"
 namespace RTH
 {
 	struct TagComponent
@@ -39,5 +41,28 @@ namespace RTH
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
+	};
+
+	struct NativeScriptComponent
+	{
+		ScriptableEntity* Instance = nullptr;
+		std::function<void()> InstantiateFunction;
+		std::function<void()> DestroyFunction;
+		std::function<void(ScriptableEntity*)> OnCreateFunction;
+		std::function<void(ScriptableEntity*, Timestep)> OnUpdateFunction;
+		std::function<void(ScriptableEntity*)> OnDestroyFunction;
+
+		template<typename T>
+		void Bind()
+		{
+			InstantiateFunction = [this]() { Instance = new T();};
+			DestroyFunction = [this]() {
+				delete (T*)Instance;
+				Instance = nullptr;
+				};
+			OnCreateFunction = [this](ScriptableEntity* instance) { static_cast<T*>(instance)->OnCreate();};
+			OnUpdateFunction = [](ScriptableEntity* instance, Timestep ts) { static_cast<T*>(instance)->OnUpdate(ts);};
+			OnDestroyFunction = [](ScriptableEntity* instance) { static_cast<T*>(instance)->OnDestroy();};
+		}
 	};
 }

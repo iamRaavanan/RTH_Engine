@@ -42,4 +42,5 @@ namespace RTH
 		entt::entity mEntityHandle{entt::null};
 		Scene* mScene = nullptr;
 	};
+
 }
