@@ -46,23 +46,17 @@ namespace RTH
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;
-		std::function<void()> InstantiateFunction;
-		std::function<void()> DestroyFunction;
-		std::function<void(ScriptableEntity*)> OnCreateFunction;
-		std::function<void(ScriptableEntity*, Timestep)> OnUpdateFunction;
-		std::function<void(ScriptableEntity*)> OnDestroyFunction;
+		ScriptableEntity* (*InstantiateScript)() = nullptr;
+		void(*DestroyScript)(NativeScriptComponent*) = nullptr;
 
 		template<typename T>
 		void Bind()
 		{
-			InstantiateFunction = [this]() { Instance = new T();};
-			DestroyFunction = [this]() {
-				delete (T*)Instance;
-				Instance = nullptr;
+			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T());};
+			DestroyScript = [](NativeScriptComponent* nsc) {
+				delete nsc->Instance;
+				nsc->Instance = nullptr;
 				};
-			OnCreateFunction = [this](ScriptableEntity* instance) { static_cast<T*>(instance)->OnCreate();};
-			OnUpdateFunction = [](ScriptableEntity* instance, Timestep ts) { static_cast<T*>(instance)->OnUpdate(ts);};
-			OnDestroyFunction = [](ScriptableEntity* instance) { static_cast<T*>(instance)->OnDestroy();};
 		}
 	};
 }
