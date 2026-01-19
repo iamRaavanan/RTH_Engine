@@ -17,8 +17,24 @@ namespace RTH
 		ImGui::Begin("Scene Hierarchy");
 		mContext->mRegistry.view<TagComponent>().each([&](entt::entity entityId, TagComponent& tc)
 		{
-			ImGui::Text("%s", tc.tag.c_str());
+			Entity entity{ entityId, mContext.get() };
+			DrawEntityNode(entity);
 		});
 		ImGui::End();
+	}
+	void SceneHierarchy::DrawEntityNode(Entity entity)
+	{
+		auto& tag = entity.GetComponent<TagComponent>().tag;
+		ImGuiTreeNodeFlags flags = ((mSelectedContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
+
+		if (ImGui::IsItemClicked())
+		{
+			mSelectedContext = entity;
+		}
+		if (opened)
+		{
+			ImGui::TreePop();
+		}
 	}
 }
