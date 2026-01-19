@@ -59,6 +59,8 @@ namespace RTH
 		secondaryCameraEntity = ActiveScene->CreateEntity("SecondaryCamera");
 		secondaryCameraEntity.AddComponent<CameraComponent>();
 		secondaryCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraNativeScriptTest>();
+
+		mSceneHierarchyPanel.SetWorldContext(ActiveScene);
 	}
 
 	void EditorLayer::OnAttach()
@@ -186,6 +188,8 @@ namespace RTH
 			}
 			ImGui::EndMenuBar();
 		}
+
+		mSceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Settings");
 		auto stats = SpriteRenderer::GetStats();

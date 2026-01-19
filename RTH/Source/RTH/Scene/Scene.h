@@ -20,5 +20,6 @@ namespace RTH
 		uint32_t mViewportWidth = 0;
 		uint32_t mViewportHeight = 0;
 		friend class Entity;
+		friend class SceneHierarchy;
 	};
 }

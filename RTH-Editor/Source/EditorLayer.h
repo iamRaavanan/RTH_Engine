@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RTH.h"
-
+#include "Panel/SceneHierarchy.h"
 namespace RTH
 {
 	class EditorLayer : public Module
@@ -33,5 +33,7 @@ namespace RTH
 		bool mViewportHovered = false;
 		glm::vec2 mViewportSize= {0.0f, 0.0f };
 		glm::vec4 mSquareColor = { 0.2f, 0.4f, 0.8f, 1.0f };
+
+		SceneHierarchy mSceneHierarchyPanel;
 	};
 }
